@@ -95,7 +95,8 @@ jobs:
             echo "[]" > $FILE
           fi
           jq ". += [{
-            \"date\": \"$DATE\",
+            \"date\": \"$DATE\", 
+            \"folder\": \"$DATE\",
             \"failed\": $FAILED,
             \"passed\": $PASSED,
             \"total\": $TOTAL,
@@ -457,7 +458,7 @@ jobs:
               // Links para relatórios
               const reportsList = document.getElementById('reports-list');
               reportsList.innerHTML = recent.map(r =>
-                '<a class="report-link" href="./' + r.date + '/">' +
+                '<a class="report-link" href="./' + r.folder + '/">' +
                   '<span>' + r.date.replace(/_/g,' ') + ' / index.html</span>' +
                   '<span class="report-arrow">→</span>' +
                 '</a>'
