@@ -56,9 +56,26 @@ jobs:
           mkdir public
           cp report.html public/index.html
       
+      - name: Gerar nome da pasta
+        id: timestamp
+        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+      - name: Organizar relatório
+        run: |
+          mkdir -p public/$DATE
+          cp report.html public/$DATE/index.html
+      - name: Atualizar index principal
+        run: |
+          echo "<h1>Relatórios de Testes</h1>" > public/index.html
+          for dir in public/*/; do
+            name=$(basename "$dir")
+            if [ "$name" != "." ]; then
+              echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
+            fi
+          done
       - name: Publicar no GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+    
