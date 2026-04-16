@@ -3,26 +3,30 @@ name: API Tests - Postman
 on:
   push:
     branches: [ "main" ]
+
 permissions:
   contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Instalar Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Instalar Newman
-        run: npm install -g newman
-      - name: Instalar Reporter HTML Extra
-        run: npm install -g newman-reporter-htmlextra
-       
+      - name: Instalar dependências
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Criar environment com secrets
         run: |
           echo '{
@@ -33,49 +37,65 @@ jobs:
               { "key": "senha", "value": "${{ secrets.SENHA }}" }
             ]
           }' > environment.json
-    
+
       - name: Rodar testes com relatório
         run: |
           newman run collection.json \
           -e environment.json \
-          --reporters cli,htmlextra \
-          --reporter-htmlextra-export report.html
-          --reporter-htmlextra-title "Relatório de Testes da API CVPS"
+          --reporters cli,htmlextra,json \
+          --reporter-htmlextra-export report.html \
+          --reporter-json-export report.json \
+          --reporter-htmlextra-title "Relatório de Testes da API CVPS" \
           --reporter-htmlextra-logs \
           --reporter-htmlextra-showEnvironmentData \
           --reporter-htmlextra-darkTheme
         continue-on-error: true
-      - name: Upload relatório
+
+      - name: Extrair métricas
+        run: |
+          TOTAL=$(jq '.run.stats.tests.total' report.json)
+          FAILED=$(jq '.run.stats.tests.failed' report.json)
+          PASSED=$(jq '.run.stats.tests.total - .run.stats.tests.failed' report.json)
+
+          echo "TOTAL=$TOTAL" >> $GITHUB_ENV
+          echo "FAILED=$FAILED" >> $GITHUB_ENV
+          echo "PASSED=$PASSED" >> $GITHUB_ENV
+
+      - name: Gerar timestamp
+        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+
+      - name: Preparar estrutura
+        run: |
+          mkdir -p public/$DATE
+
+      - name: Salvar relatório da execução
+        run: |
+          cp report.html public/$DATE/index.html
+
+      - name: Gerar dashboard principal
+        run: |
+          echo "<h1>📊 Dashboard de Qualidade - API CVPS</h1>" > public/index.html
+          echo "<p><b>Execução:</b> $(date)</p>" >> public/index.html
+          echo "<p>✔ Passou: $PASSED</p>" >> public/index.html
+          echo "<p>❌ Falhou: $FAILED</p>" >> public/index.html
+          echo "<p>📦 Total: $TOTAL</p>" >> public/index.html
+          echo "<h2>📂 Histórico</h2>" >> public/index.html
+
+          for dir in public/*/; do
+            name=$(basename "$dir")
+            echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
+          done
+
+      - name: Upload relatório (artifact)
         uses: actions/upload-artifact@v4
         with:
           name: report-api-tests
           path: report.html
-      - name: Deploy relatório no GitHub Pages
-        if: always()
-        run: |
-          mkdir public
-          cp report.html public/index.html
-      
-      - name: Gerar nome da pasta
-        id: timestamp
-        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
-      - name: Organizar relatório
-        run: |
-          mkdir -p public/$DATE
-          cp report.html public/$DATE/index.html
-      - name: Atualizar index principal
-        run: |
-          echo "<h1>Relatórios de Testes</h1>" > public/index.html
-          for dir in public/*/; do
-            name=$(basename "$dir")
-            if [ "$name" != "." ]; then
-              echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
-            fi
-          done
+
       - name: Publicar no GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-    
