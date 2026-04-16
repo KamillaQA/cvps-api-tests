@@ -49,3 +49,15 @@ jobs:
         with:
           name: report-api-tests
           path: report.html
+      - name: Deploy relatório no GitHub Pages
+        if: always()
+        run: |
+          mkdir public
+          cp report.html public/index.html
+      
+      - name: Publicar no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
