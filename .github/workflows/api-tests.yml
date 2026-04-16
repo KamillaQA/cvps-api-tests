@@ -182,23 +182,25 @@ jobs:
             echo "<!DOCTYPE html>"
             echo "<html><head><meta charset='UTF-8'><title>Dashboard</title></head>"
             echo "<body style='background:#0a0e1a;color:white;font-family:Arial;padding:20px'>"
-
+      
             echo "<h1>📊 Dashboard de Qualidade</h1>"
             echo "<p><b>Última execução:</b> $DATA_BR</p>"
             echo "<p>✔ Passou: $PASSED</p>"
             echo "<p>❌ Falhou: $FAILED</p>"
             echo "<p>📦 Total: $TOTAL</p>"
             echo "<p>📊 Sucesso: $SUCCESS%</p>"
-
+      
             echo "<h2>📂 Histórico</h2>"
-
-            for dir in public/*/; do
-              name=\$(basename "\$dir")
-              echo "<p><a href='./\$name/'>\$name</a></p>"
+      
+            jq -c '.[]' public/history.json | while read item; do
+              DATA=$(echo $item | jq -r '.date')
+              FOLDER=$(echo $item | jq -r '.folder')
+      
+              echo "<p><a href='./$FOLDER/'>$DATA</a></p>"
             done
-
+      
             echo "</body></html>"
-          } > public/index.html
+           } > public/index.html
 
       # 🔹 Deploy
       - name: Publicar no GitHub Pages
