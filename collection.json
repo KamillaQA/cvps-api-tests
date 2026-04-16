@@ -11588,7 +11588,11 @@
           "\r",
           "pm.environment.set(\"dataAtualISO\", new Date().toISOString());\r",
           "\r",
-          "pm.environment.set(\"timestamp\", Date.now().toString());"
+          "pm.environment.set(\"timestamp\", Date.now().toString());\r",
+          "\r",
+          "pm.environment.set(\"codProd\", \"PROD_\" + Date.now());\r",
+          "\r",
+          "pm.environment.set(\"codigoUsuario\", \"USR_\" + Date.now());"
         ]
       }
     },
