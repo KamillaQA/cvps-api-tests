@@ -23,5 +23,9 @@ jobs:
       - name: Rodar testes
         run: |
           newman run collection.json \
-          -e environment.json \
+          --env-var baseUrl=${{ secrets.BASE_URL }} \
+          --env-var usuario=${{ secrets.USUARIO }} \
+          --env-var senha=${{ secrets.SENHA }} \
+          --env-var token=${{ secrets.TOKEN }} \
+          --env-var apiVersion=${{ secrets.API_VERSION }} \
           --reporters cli
