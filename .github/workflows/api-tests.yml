@@ -19,9 +19,9 @@ jobs:
 
       - name: Instalar Newman
         run: npm install -g newman
-
-      - name: Instalar Reporter HTML
-        run: npm install -g newman-reporter-html
+      - name: Instalar Reporter HTML Extra
+        run: npm install -g newman-reporter-htmlextra
+       
       - name: Criar environment com secrets
         run: |
           echo '{
@@ -37,8 +37,12 @@ jobs:
         run: |
           newman run collection.json \
           -e environment.json \
-          --reporters cli,html \
-          --reporter-html-export report.html
+          --reporters cli,htmlextra \
+          --reporter-htmlextra-export report.html
+          --reporter-htmlextra-title "Relatório API CVPS" \
+          --reporter-htmlextra-logs \
+          --reporter-htmlextra-showEnvironmentData \
+          --reporter-htmlextra-darkTheme
         continue-on-error: true
       - name: Upload relatório
         uses: actions/upload-artifact@v4
