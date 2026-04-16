@@ -46,7 +46,11 @@
                       "    console.log(\"Token gerado:\", token);\r",
                       "\r",
                       "    pm.environment.set(\"token\", token);\r",
-                      "});"
+                      "});\r",
+                      "\r",
+                      "pm.environment.set(\"numReq\", Date.now().toString());\r",
+                      "pm.environment.set(\"dataAtualISO\", new Date().toISOString());\r",
+                      "pm.environment.set(\"timestamp\", Date.now().toString());"
                     ],
                     "type": "text/javascript",
                     "packages": {},
@@ -151,7 +155,9 @@
                 "packages": {},
                 "requests": {},
                 "exec": [
-                  ""
+                  "pm.environment.set(\"numReq\", Date.now().toString());\r",
+                  "pm.environment.set(\"dataAtualISO\", new Date().toISOString());\r",
+                  "pm.environment.set(\"timestamp\", Date.now().toString());"
                 ]
               }
             },
