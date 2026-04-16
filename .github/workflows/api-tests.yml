@@ -12,14 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 🔹 Checkout
       - name: Checkout código
         uses: actions/checkout@v4
 
+      # 🔹 Node
       - name: Instalar Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
+      # 🔹 Dependências
       - name: Instalar dependências
         run: |
           npm install -g newman
@@ -27,6 +30,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq
 
+      # 🔹 Baixar histórico existente
+      - name: Baixar histórico do GitHub Pages
+        run: |
+          git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages || true
+          mkdir -p public
+          cp -r gh-pages/* public/ || true
+
+      # 🔹 Criar environment com secrets
       - name: Criar environment com secrets
         run: |
           echo '{
@@ -38,6 +49,7 @@ jobs:
             ]
           }' > environment.json
 
+      # 🔹 Rodar testes
       - name: Rodar testes com relatório
         run: |
           newman run collection.json \
@@ -51,56 +63,102 @@ jobs:
           --reporter-htmlextra-darkTheme
         continue-on-error: true
 
+      # 🔹 Extrair métricas CORRETAS
       - name: Extrair métricas
         run: |
           TOTAL=$(jq '.run.stats.assertions.total' report.json)
           FAILED=$(jq '.run.stats.assertions.failed' report.json)
           PASSED=$(jq '.run.stats.assertions.total - .run.stats.assertions.failed' report.json)
-          SUCCESS_RATE=$(awk "BEGIN {printf \"%.2f\", ($PASSED/$TOTAL)*100}")
+          SUCCESS=$(awk "BEGIN {printf \"%.2f\", ($PASSED/$TOTAL)*100}")
 
-          echo "SUCCESS_RATE=$SUCCESS_RATE" >> $GITHUB_ENV
           echo "TOTAL=$TOTAL" >> $GITHUB_ENV
           echo "FAILED=$FAILED" >> $GITHUB_ENV
           echo "PASSED=$PASSED" >> $GITHUB_ENV
+          echo "SUCCESS=$SUCCESS" >> $GITHUB_ENV
 
+      # 🔹 Timestamp
       - name: Gerar timestamp
         run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
 
-      - name: Preparar estrutura
+      # 🔹 Criar pasta da execução
+      - name: Criar estrutura
         run: |
           mkdir -p public/$DATE
 
-      - name: Salvar relatório da execução
+      # 🔹 Salvar relatório
+      - name: Salvar relatório
         run: |
           cp report.html public/$DATE/index.html
 
-      - name: Gerar dashboard principal
+      # 🔹 Atualizar histórico JSON
+      - name: Atualizar histórico JSON
         run: |
-          echo "<h1>📊 Dashboard de Qualidade - API CVPS</h1>" > public/index.html
-          echo "<p><b>Execução:</b> $(date)</p>" >> public/index.html
-          echo "<p>✔ Passou: $PASSED</p>" >> public/index.html
-          echo "<p>❌ Falhou: $FAILED</p>" >> public/index.html
-          echo "<p>📦 Total: $TOTAL</p>" >> public/index.html
-          echo "<p>📊 Sucesso: $SUCCESS_RATE%</p>" >> public/index.html
-          echo "<h2>📂 Histórico</h2>" >> public/index.html
+          FILE=public/history.json
 
-          for dir in public/*/; do
-            name=$(basename "$dir")
-            echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
-          done
+          if [ ! -f "$FILE" ]; then
+            echo "[]" > $FILE
+          fi
 
-      - name: Upload relatório (artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: report-api-tests
-          path: report.html
+          jq ". += [{
+            \"date\": \"$DATE\",
+            \"failed\": $FAILED,
+            \"passed\": $PASSED
+          }]" $FILE > tmp.json && mv tmp.json $FILE
+
+      # 🔹 Gerar dashboard com gráfico
+      - name: Gerar dashboard
+        run: |
+          cat <<'EOF' > public/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>Dashboard de Qualidade</title>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          </head>
+          <body>
           
-      - name: Baixar histórico do GitHub Pages
-        run: |
-          git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages || true
-          mkdir -p public
-          cp -r gh-pages/* public/ || true
-    
+          <h1>📊 Dashboard de Qualidade - API CVPS</h1>
+          
+          <p><b>Execução:</b> $(date)</p>
+          <p>✔ Passou: $PASSED</p>
+          <p>❌ Falhou: $FAILED</p>
+          <p>📦 Total de validações: $TOTAL</p>
+          <p>📊 Sucesso: $SUCCESS%</p>
+          
+          <h2>📈 Evolução de Falhas</h2>
+          <canvas id="grafico" width="600" height="300"></canvas>
+          
+          <script>
+          fetch('history.json')
+            .then(res => res.json())
+            .then(data => {
+              const labels = data.map(d => d.date);
+              const failed = data.map(d => d.failed);
+          
+              new Chart(document.getElementById('grafico'), {
+                type: 'line',
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: 'Falhas',
+                    data: failed
+                  }]
+                }
+              });
+            });
+          </script>
+          
+          <h2>📂 Histórico</h2>
+          EOF
+          
+              for dir in public/*/; do
+                name=$(basename "$dir")
+            if [ "$name" != "." ] && [ "$name" != "history.json" ]; then
+              echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
+            fi
+          done
+      # 🔹 Publicar no GitHub Pages
       - name: Publicar no GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
