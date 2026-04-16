@@ -39,7 +39,7 @@ jobs:
           -e environment.json \
           --reporters cli,htmlextra \
           --reporter-htmlextra-export report.html
-          --reporter-htmlextra-title "Relatório API CVPS" \
+          --reporter-htmlextra-title "Relatório de Testes da API CVPS"
           --reporter-htmlextra-logs \
           --reporter-htmlextra-showEnvironmentData \
           --reporter-htmlextra-darkTheme
