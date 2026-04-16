@@ -108,7 +108,9 @@ jobs:
       # 🔹 Gerar dashboard com gráfico
       - name: Gerar dashboard
         run: |
-          cat <<'EOF' > public/index.html
+          DATA_BR=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M:%S')
+      
+          cat <<EOF > public/index.html
           <!DOCTYPE html>
           <html>
           <head>
@@ -120,7 +122,7 @@ jobs:
           
           <h1>📊 Dashboard de Qualidade - API CVPS</h1>
           
-          <p><b>Execução:</b> $(date)</p>
+          <p><b>Execução:</b> $DATA_BR</p>
           <p>✔ Passou: $PASSED</p>
           <p>❌ Falhou: $FAILED</p>
           <p>📦 Total de validações: $TOTAL</p>
@@ -154,10 +156,10 @@ jobs:
           
               for dir in public/*/; do
                 name=$(basename "$dir")
-            if [ "$name" != "." ] && [ "$name" != "history.json" ]; then
-              echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
-            fi
-          done
+                if [ "$name" != "." ] && [ "$name" != "history.json" ]; then
+                  echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
+                fi
+              done
       # 🔹 Publicar no GitHub Pages
       - name: Publicar no GitHub Pages
         if: always()
