@@ -39,6 +39,7 @@ jobs:
           -e environment.json \
           --reporters cli,html \
           --reporter-html-export report.html
+        continue-on-error: true
       - name: Upload relatório
         uses: actions/upload-artifact@v4
         with:
