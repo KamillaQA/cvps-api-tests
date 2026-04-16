@@ -26,7 +26,6 @@ jobs:
       - name: Instalar dependências
         run: |
           npm install -g newman
-          npm install -g newman-reporter-htmlextra
           sudo apt-get update
           sudo apt-get install -y jq bc
 
@@ -76,10 +75,10 @@ jobs:
           echo "PASSED=$PASSED" >> $GITHUB_ENV
           echo "SUCCESS=$SUCCESS" >> $GITHUB_ENV
 
-      # 🔹 Timestamp BR
-      - name: Gerar timestamp BR
+      # 🔹 Timestamp (CORRIGIDO)
+      - name: Gerar timestamp
         run: |
-          DATE=$(TZ="America/Sao_Paulo" date +'%d-%m-%Y_%H-%M-%S')
+          DATE=$(TZ="America/Sao_Paulo" date +'%Y-%m-%d_%H-%M-%S')
           DATA_BR=$(TZ="America/Sao_Paulo" date +'%d/%m/%Y %H:%M:%S')
 
           echo "DATE=$DATE" >> $GITHUB_ENV
@@ -93,7 +92,6 @@ jobs:
       - name: Extrair falhas
         run: |
           jq -r '.run.failures[]?.source.name' report.json | sort | uniq > falhas.txt || true
-          echo "FALHAS=$(cat falhas.txt | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
 
       # 🔹 Atualizar histórico
       - name: Atualizar histórico
@@ -109,11 +107,10 @@ jobs:
             \"failed\": $FAILED,
             \"passed\": $PASSED,
             \"total\": $TOTAL,
-            \"success\": $SUCCESS,
-            \"falhas\": \"$FALHAS\"
+            \"success\": $SUCCESS
           }]" $FILE > tmp.json && mv tmp.json $FILE
 
-      # 🔹 Página de execução limpa
+      # 🔹 Página de execução LIMPA
       - name: Criar página da execução
         run: |
           if [ "$FAILED" -eq 0 ]; then
@@ -123,9 +120,9 @@ jobs:
             STATUS_COLOR="#dc2626"
             STATUS_TEXT="COM FALHAS"
           fi
-      
+
           DATA_BR=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M:%S')
-      
+
           {
             echo "<!DOCTYPE html>"
             echo "<html lang='pt-BR'>"
@@ -143,25 +140,25 @@ jobs:
             echo "</style>"
             echo "</head>"
             echo "<body>"
-      
+
             echo "<div class='header'>"
             echo "<div>📊 Execução API CVPS<br>$DATE</div>"
             echo "<div class='status'>$STATUS_TEXT</div>"
             echo "</div>"
-      
+
             echo "<div class='container'>"
             echo "<p><b>Execução:</b> $DATA_BR</p>"
-      
+
             echo "<div class='cards'>"
             echo "<div class='card'>✔ $PASSED</div>"
             echo "<div class='card'>❌ $FAILED</div>"
             echo "<div class='card'>📦 $TOTAL</div>"
             echo "<div class='card'>📊 $SUCCESS%</div>"
             echo "</div>"
-      
+
             echo "<h2>🚨 Endpoints com falha</h2>"
             echo "<div class='lista'>"
-      
+
             if [ -s falhas.txt ]; then
               while read linha; do
                 echo "<p>❌ $linha</p>"
@@ -169,7 +166,7 @@ jobs:
             else
               echo "<p>✅ Nenhuma falha</p>"
             fi
-      
+
             echo "</div>"
             echo "<br>"
             echo "<a href='../index.html'>← Voltar</a>"
@@ -177,6 +174,31 @@ jobs:
             echo "</body>"
             echo "</html>"
           } > public/$DATE/index.html
+
+      # 🔹 Dashboard simples (com data BR)
+      - name: Gerar dashboard
+        run: |
+          {
+            echo "<!DOCTYPE html>"
+            echo "<html><head><meta charset='UTF-8'><title>Dashboard</title></head>"
+            echo "<body style='background:#0a0e1a;color:white;font-family:Arial;padding:20px'>"
+
+            echo "<h1>📊 Dashboard de Qualidade</h1>"
+            echo "<p><b>Última execução:</b> $DATA_BR</p>"
+            echo "<p>✔ Passou: $PASSED</p>"
+            echo "<p>❌ Falhou: $FAILED</p>"
+            echo "<p>📦 Total: $TOTAL</p>"
+            echo "<p>📊 Sucesso: $SUCCESS%</p>"
+
+            echo "<h2>📂 Histórico</h2>"
+
+            for dir in public/*/; do
+              name=\$(basename "\$dir")
+              echo "<p><a href='./\$name/'>\$name</a></p>"
+            done
+
+            echo "</body></html>"
+          } > public/index.html
 
       # 🔹 Deploy
       - name: Publicar no GitHub Pages
