@@ -11578,7 +11578,11 @@
         "packages": {},
         "requests": {},
         "exec": [
-          ""
+          "pm.environment.set(\"numReq\", Date.now().toString());\r",
+          "\r",
+          "pm.environment.set(\"dataAtualISO\", new Date().toISOString());\r",
+          "\r",
+          "pm.environment.set(\"timestamp\", Date.now().toString());"
         ]
       }
     },
