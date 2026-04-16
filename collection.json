@@ -207,7 +207,7 @@
           "name": "01 - Smoke",
           "item": [
             {
-              "name": "[SMOKE] Requisicao - enviar (sucesso)",
+              "name": "[SMOKE] Requisicao Normal - enviar (sucesso)",
               "event": [
                 {
                   "listen": "test",
@@ -244,6 +244,7 @@
                   "listen": "prerequest",
                   "script": {
                     "exec": [
+                      "pm.environment.set(\"numReq\", Date.now());\r",
                       "pm.variables.set(\"dataAtualISO\", new Date().toISOString());"
                     ],
                     "type": "text/javascript",
@@ -267,7 +268,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"123467\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -288,13 +289,13 @@
               },
               "response": [
                 {
-                  "name": "[SMOKE] Requisicao - enviar (sucesso)",
+                  "name": "[SMOKE] Requisicao Normal - enviar (sucesso)",
                   "originalRequest": {
                     "method": "POST",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"123467\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                      "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -319,7 +320,7 @@
                   "header": [
                     {
                       "key": "Date",
-                      "value": "Tue, 24 Mar 2026 19:25:07 GMT"
+                      "value": "Thu, 16 Apr 2026 14:10:27 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -387,7 +388,7 @@
                     },
                     {
                       "key": "Report-To",
-                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=996BZsafJiGHJZ5H6BvBw0GWlbgwHZDvJjJ6Tt%2Fy6cQ2xQuJTr38ik5Xo1BrINTF1q%2FIn8%2BRXI602sY7OpxPRMEBCawBBT2OwFk6f%2BIN2fFXPioTnWKCKFP2a1yx%2BXCy\"}]}"
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=WJhjEtzSf9njo5OvC5qgXWtLCWyukQFkdbiNvLYiEVdJ6O0JXZXoO0isZDDEhoVK5ADTURLzEdRG3G2Gd3%2B%2F1ASY0kSKIesmxze%2F%2FnMbUjqbGLyaC38nny8oo0WMLC%2Bsmwjz%2FC%2FTBJH6PYN0G0ZhG8gSVw%3D%3D\"}]}"
                     },
                     {
                       "key": "expect-ct",
@@ -399,7 +400,411 @@
                     },
                     {
                       "key": "CF-RAY",
-                      "value": "9e180f52ce99cb03-GIG"
+                      "value": "9ed3c6026ece8125-GIG"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"erro\": false,\n    \"mensagem\": \"Requisição processada com sucesso\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "[SMOKE] Requisicao Emergencial - enviar (sucesso)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Data enviada está preenchida\", function () {\r",
+                      "    pm.expect(pm.environment.get(\"dataAtualISO\")).to.not.be.undefined;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Status 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta aceitável\", () => {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Erro deve ser false\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "    pm.expect(json.erro).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Mensagem de sucesso\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "    pm.expect(json.mensagem).to.eql(\"Requisição processada com sucesso\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"numReq\", Date.now());\r",
+                      "pm.variables.set(\"dataAtualISO\", new Date().toISOString());"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"E\"\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Requisicao/enviar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Requisicao",
+                    "enviar"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "[SMOKE] Requisicao Emergencial - enviar (sucesso)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"E\"\r\n    }\r\n  ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v{{apiVersion}}/Requisicao/enviar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v{{apiVersion}}",
+                        "Requisicao",
+                        "enviar"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Thu, 16 Apr 2026 14:10:44 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Server",
+                      "value": "cloudflare"
+                    },
+                    {
+                      "key": "api-supported-versions",
+                      "value": "1.0"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots",
+                      "value": "otherbot: noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots-Tag",
+                      "value": "googlebot: noindex, nofollow"
+                    },
+                    {
+                      "key": "x-xss-protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "x-frame-options",
+                      "value": "SAMEORIGIN"
+                    },
+                    {
+                      "key": "Content-Security-Policy",
+                      "value": "object-src 'self'; frame-ancestors 'self' *.websupply.com.br *.remaza.com.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' apis.google.com *.google.com *.gstatic.com code.jquery.com unpkg.com *.fontawesome.com *.aspnetcdn.com *.yahooapis.com cdn.jsdelivr.net cdnjs.cloudflare.com www.googletagmanager.com *.bootstrapcdn.com cdn.datatables.net connect.facebook.net *.angularjs.org ajax.googleapis.com *.google-analytics.com *.googleadservices.com *.doubleclick.net *.weatherwidget.org cdn.tailwindcss.com;"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=31536000; includeSubDomains; preload"
+                    },
+                    {
+                      "key": "x-content-type-options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Nel",
+                      "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                    },
+                    {
+                      "key": "cf-cache-status",
+                      "value": "DYNAMIC"
+                    },
+                    {
+                      "key": "referrer-policy",
+                      "value": "same-origin"
+                    },
+                    {
+                      "key": "Report-To",
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=g7y55RBrWLT4o%2BgJbTwJ7BJxUhzgsng4aXs32hMiEv6l6abFGjP05jpvSpW6xyD52M37Fko0Xm0nMtKj34NyonhLPkSHdlftZalYdMvaE9B4xxQBHWCsk1uuIxHBMjqHsBLZDn19FgAS7bxnxj7WZZU7AA%3D%3D\"}]}"
+                    },
+                    {
+                      "key": "expect-ct",
+                      "value": "max-age=86400, enforce"
+                    },
+                    {
+                      "key": "Content-Encoding",
+                      "value": "br"
+                    },
+                    {
+                      "key": "CF-RAY",
+                      "value": "9ed3c66feec88125-GIG"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"erro\": false,\n    \"mensagem\": \"Requisição processada com sucesso\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "[SMOKE] Requisicao Urgente - enviar (sucesso)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Data enviada está preenchida\", function () {\r",
+                      "    pm.expect(pm.environment.get(\"dataAtualISO\")).to.not.be.undefined;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Status 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta aceitável\", () => {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Erro deve ser false\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "    pm.expect(json.erro).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Mensagem de sucesso\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "    pm.expect(json.mensagem).to.eql(\"Requisição processada com sucesso\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"numReq\", Date.now());\r",
+                      "pm.variables.set(\"dataAtualISO\", new Date().toISOString());"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"U\"\r\n    }\r\n  ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Requisicao/enviar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Requisicao",
+                    "enviar"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "[SMOKE] Requisicao Urgente - enviar (sucesso)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"U\"\r\n    }\r\n  ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v{{apiVersion}}/Requisicao/enviar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v{{apiVersion}}",
+                        "Requisicao",
+                        "enviar"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Thu, 16 Apr 2026 14:10:56 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Server",
+                      "value": "cloudflare"
+                    },
+                    {
+                      "key": "api-supported-versions",
+                      "value": "1.0"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots",
+                      "value": "otherbot: noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots-Tag",
+                      "value": "googlebot: noindex, nofollow"
+                    },
+                    {
+                      "key": "x-xss-protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "x-frame-options",
+                      "value": "SAMEORIGIN"
+                    },
+                    {
+                      "key": "Content-Security-Policy",
+                      "value": "object-src 'self'; frame-ancestors 'self' *.websupply.com.br *.remaza.com.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' apis.google.com *.google.com *.gstatic.com code.jquery.com unpkg.com *.fontawesome.com *.aspnetcdn.com *.yahooapis.com cdn.jsdelivr.net cdnjs.cloudflare.com www.googletagmanager.com *.bootstrapcdn.com cdn.datatables.net connect.facebook.net *.angularjs.org ajax.googleapis.com *.google-analytics.com *.googleadservices.com *.doubleclick.net *.weatherwidget.org cdn.tailwindcss.com;"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=31536000; includeSubDomains; preload"
+                    },
+                    {
+                      "key": "x-content-type-options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Nel",
+                      "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                    },
+                    {
+                      "key": "cf-cache-status",
+                      "value": "DYNAMIC"
+                    },
+                    {
+                      "key": "referrer-policy",
+                      "value": "same-origin"
+                    },
+                    {
+                      "key": "Report-To",
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6SltDlAqjvCPY30c7%2FBnj9Ofj8%2FL5vTzV7p1vf0W6WtgQq%2FPSVFCCA08zxQiLDStHez3%2BUSHiod3c8Vk3re87uaW0MmysCGdLIDAV73Y%2B5kukWFttck7nSnGDtolrUa9Wr%2FwDExefW8UYPHZPZbzyPv2Hw%3D%3D\"}]}"
+                    },
+                    {
+                      "key": "expect-ct",
+                      "value": "max-age=86400, enforce"
+                    },
+                    {
+                      "key": "Content-Encoding",
+                      "value": "br"
+                    },
+                    {
+                      "key": "CF-RAY",
+                      "value": "9ed3c6bf3dcd8125-GIG"
                     }
                   ],
                   "cookie": [],
@@ -512,7 +917,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -716,7 +1121,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"U\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -920,7 +1325,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"CAT_{{numReq}}\",\r\n      \"strDscCateg\": \"Categoria nova teste\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"CAT_{{numReq}}\",\r\n      \"strDscCateg\": \"Categoria nova teste\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1125,7 +1530,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste múltiplos itens\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Item 1\",\r\n      \"strDescCompletaProduto\": \"Item 1 completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material de escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 1,\r\n      \"decValorReferencia\": 10,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    },\r\n    {\r\n      \"intNumeroItemRequisicao\": 2,\r\n      \"strCodProd\": \"0002\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 2,\r\n      \"strDescResumidaProduto\": \"Item 2\",\r\n      \"strDescCompletaProduto\": \"Item 2 completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material de escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 2,\r\n      \"decValorReferencia\": 20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste múltiplos itens\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Item 1\",\r\n      \"strDescCompletaProduto\": \"Item 1 completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material de escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 1,\r\n      \"decValorReferencia\": 10,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"U\"\r\n    },\r\n    {\r\n      \"intNumeroItemRequisicao\": 2,\r\n      \"strCodProd\": \"0002\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 2,\r\n      \"strDescResumidaProduto\": \"Item 2\",\r\n      \"strDescCompletaProduto\": \"Item 2 completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material de escritório\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 2,\r\n      \"decValorReferencia\": 20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1331,7 +1736,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1536,7 +1941,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste produto novo\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"{{codProd}}\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Produto novo teste\",\r\n      \"strDescCompletaProduto\": \"Produto criado automaticamente via API\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"999001\",\r\n      \"strDscCateg\": \"Categoria nova\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 1,\r\n      \"decValorReferencia\": 10.50,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste produto novo\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"{{codProd}}\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Produto novo teste\",\r\n      \"strDescCompletaProduto\": \"Produto criado automaticamente via API\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"999001\",\r\n      \"strDscCateg\": \"Categoria nova\",\r\n      \"strTipoItem\": \"P\",\r\n      \"strQuantidade\": 1,\r\n      \"decValorReferencia\": 10.50,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1777,7 +2182,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"999999\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"1\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"Normal\"\n    }\n  ]\n}",
+                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"999999\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"1\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"N\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -1982,7 +2387,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"kp\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"999999\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"1\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"Normal\"\n    }\n  ]\n}",
+                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"kp\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"999999\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"1\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"N\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -2391,7 +2796,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"SUPORTECVPS\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"0001\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"-2\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"Normal\"\n    }\n  ]\n}",
+                  "raw": "{\n  \"header\": {\n    \"strNumRequisicao\": \"{{numReq}}\",\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\n    \"strObservacao\": \"Teste QA\",\n    \"strCodComprador\": \"SUPORTECVPS\"\n  },\n  \"itens\": [\n    {\n      \"intNumeroItemRequisicao\": 1,\n      \"strCodProd\": \"0001\",\n      \"strNumSolicitacao\": \"4500012\",\n      \"intNumeroItemSolicitacao\": 1,\n      \"strDescResumidaProduto\": \"Teste\",\n      \"strDescCompletaProduto\": \"Teste completo\",\n      \"strUnidadeVenda\": \"UN\",\n      \"strCdgCateg\": \"888000\",\n      \"strDscCateg\": \"Material escritório\",\n      \"strTipoItem\": \"S\",\n      \"strQuantidade\": \"-2\",\n      \"decValorReferencia\": 14.20,\n      \"strCodUnidade\": \"02\",\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\n      \"strCriticidade\": \"N\"\n    }\n  ]\n}",
                   "options": {
                     "raw": {
                       "headerFamily": "json",
@@ -2588,7 +2993,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"2\",\r\n      \"decValorReferencia\": -8.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"2\",\r\n      \"decValorReferencia\": -8.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2777,7 +3182,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"2\",\r\n      \"decValorReferencia\": 0,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"0001\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"2\",\r\n      \"decValorReferencia\": 0,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3152,7 +3557,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"123456\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"123456\",\r\n    \"datDataRequisicao\": \"{{dataAtualISO}}\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3343,7 +3748,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"00287\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"Normal\"\r\n    }\r\n  ]\r\n}",
+                  "raw": "{\r\n  \"header\": {\r\n    \"strNumRequisicao\": \"{{numReq}}\",\r\n    \"datDataRequisicao\": \"00287\",\r\n    \"strObservacao\": \"Teste QA\",\r\n    \"strCodComprador\": \"SUPORTECVPS\"\r\n  },\r\n  \"itens\": [\r\n    {\r\n      \"intNumeroItemRequisicao\": 1,\r\n      \"strCodProd\": \"999999\",\r\n      \"strNumSolicitacao\": \"4500012\",\r\n      \"intNumeroItemSolicitacao\": 1,\r\n      \"strDescResumidaProduto\": \"Teste\",\r\n      \"strDescCompletaProduto\": \"Teste completo\",\r\n      \"strUnidadeVenda\": \"UN\",\r\n      \"strCdgCateg\": \"888000\",\r\n      \"strDscCateg\": \"Material escritório\",\r\n      \"strTipoItem\": \"S\",\r\n      \"strQuantidade\": \"1\",\r\n      \"decValorReferencia\": 14.20,\r\n      \"strCodUnidade\": \"02\",\r\n      \"datDataRemessa\": \"{{dataAtualISO}}\",\r\n      \"strCriticidade\": \"N\"\r\n    }\r\n  ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3486,7 +3891,7 @@
           "name": "01 - Smoke",
           "item": [
             {
-              "name": "[SMOKE] Sincronizar usuário (sucesso)",
+              "name": "[SMOKE] Sincronizar usuário Ativo (sucesso)",
               "event": [
                 {
                   "listen": "test",
@@ -3537,7 +3942,194 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"A\"\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Usuario",
+                    "sincronizar"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "[SMOKE] Sincronizar usuário (sucesso)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"header\": {\n    \"strCodigo\": \"USR001\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v{{apiVersion}}",
+                        "Usuario",
+                        "sincronizar"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Tue, 31 Mar 2026 11:45:26 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Server",
+                      "value": "cloudflare"
+                    },
+                    {
+                      "key": "api-supported-versions",
+                      "value": "1.0"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots",
+                      "value": "otherbot: noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots-Tag",
+                      "value": "googlebot: noindex, nofollow"
+                    },
+                    {
+                      "key": "x-xss-protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "x-frame-options",
+                      "value": "SAMEORIGIN"
+                    },
+                    {
+                      "key": "Content-Security-Policy",
+                      "value": "object-src 'self'; frame-ancestors 'self' *.websupply.com.br *.remaza.com.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' apis.google.com *.google.com *.gstatic.com code.jquery.com unpkg.com *.fontawesome.com *.aspnetcdn.com *.yahooapis.com cdn.jsdelivr.net cdnjs.cloudflare.com www.googletagmanager.com *.bootstrapcdn.com cdn.datatables.net connect.facebook.net *.angularjs.org ajax.googleapis.com *.google-analytics.com *.googleadservices.com *.doubleclick.net *.weatherwidget.org cdn.tailwindcss.com;"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=31536000; includeSubDomains; preload"
+                    },
+                    {
+                      "key": "x-content-type-options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Nel",
+                      "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                    },
+                    {
+                      "key": "cf-cache-status",
+                      "value": "DYNAMIC"
+                    },
+                    {
+                      "key": "referrer-policy",
+                      "value": "same-origin"
+                    },
+                    {
+                      "key": "Report-To",
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fv2GPz%2BnmZ2USCYEDQVqpdCJJruzCuUjjJAWgtxmxl7NCRVB7Rn8enEZWFkQy54L6Q%2B2BFyjtqTfG6G4ZCvxsNrztPxIIBfsI7dKdL5a8WX%2FeP2v%2FYwnh43hnEWeP%2BWgNf4wQuP8HyURMphtCFfegxVOyA%3D%3D\"}]}"
+                    },
+                    {
+                      "key": "expect-ct",
+                      "value": "max-age=86400, enforce"
+                    },
+                    {
+                      "key": "Content-Encoding",
+                      "value": "br"
+                    },
+                    {
+                      "key": "CF-RAY",
+                      "value": "9e4f1b9e4fb4cb18-GIG"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"erro\": false,\n    \"mensagem\": \"Usuário processado com sucesso\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "[SMOKE] Sincronizar usuário Inativo (sucesso)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();\r",
+                      "\r",
+                      "pm.test(\"Status deve ser 200\", () => {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Erro deve ser false\", () => {\r",
+                      "    pm.expect(json.erro).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Mensagem de sucesso\", () => {\r",
+                      "    pm.expect(json.mensagem.toLowerCase()).to.include(\"sucesso\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta aceitável\", () => {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"codigoUsuario\", \"USR_\" + Date.now());"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"I\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -3722,7 +4314,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"USR001\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"USR001\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -3913,7 +4505,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"José da Silva Jr@@@@@\",\n    \"strEmail\": \"jose.silva@empresa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"José da Silva Jr@@@@@\",\n    \"strEmail\": \"jose.silva@empresa.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4096,7 +4688,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"12345\",\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"12345\",\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4284,7 +4876,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \" \",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \" \",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4454,7 +5046,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": null,\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"teste@empresa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": null,\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"teste@empresa.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4625,7 +5217,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4807,7 +5399,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -4989,7 +5581,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": null,\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": null,\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -5175,7 +5767,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -5364,7 +5956,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"abc\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"abc\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -5553,7 +6145,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": null,\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": null,\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -6290,7 +6882,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"teste@empresa.com\",\n    \"strStatus\": \"Ativo\"\n  },\n  \"itens\": [\n    {\n      \"campo\": \"valor\""
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario Teste\",\n    \"strEmail\": \"teste@empresa.com\",\n    \"strStatus\": \"A\"\n  },\n  \"itens\": [\n    {\n      \"campo\": \"valor\""
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -6645,7 +7237,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"  \",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"  \",\n    \"strNomeCompleto\": \"Usuario QA\",\n    \"strEmail\": \"usuario@qazando.com\",\n    \"strStatus\": \"A\"\n  }\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
@@ -6769,6 +7361,205 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"errors\": {\n        \"header.strCodigo\": [\n            \"O Código do usuário é obrigatório.\"\n        ]\n    },\n    \"traceId\": \"00-760dea3b8004caca7f7f0ea71ab26ce2-bebd5dd21dadb2fd-00\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "[NEG] Sincronizar usuário com o campo status incorreto",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();\r",
+                      "\r",
+                      "pm.test(\"Status deve indicar erro\", () => {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Deve indicar erro\", () => {\r",
+                      "    if (json.erro !== undefined) {\r",
+                      "        pm.expect(json.erro).to.eql(true);\r",
+                      "    }\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Deve conter mensagem de erro\", () => {\r",
+                      "    if (json.mensagem) {\r",
+                      "        pm.expect(json.mensagem.toLowerCase()).to.include(\"erro\");\r",
+                      "    }\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Erro deve indicar problema no status\", () => {\r",
+                      "    if (json.erros) {\r",
+                      "        const erro = json.erros[0].descErro.toLowerCase();\r",
+                      "        pm.expect(erro).to.include(\"status\");\r",
+                      "    } else if (json.errors) {\r",
+                      "        const erros = JSON.stringify(json.errors).toLowerCase();\r",
+                      "        pm.expect(erros).to.include(\"status\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"codigoUsuario\", \"USR_\" + Date.now());"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Usuario",
+                    "sincronizar"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "[NEG] Sincronizar usuário com o campo status incorreto",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"header\": {\n    \"strCodigo\": \"{{codigoUsuario}}\",\n    \"strNomeCompleto\": \"Usuario QA Teste\",\n    \"strEmail\": \"usuario@qa.com\",\n    \"strStatus\": \"Ativo\"\n  }\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v{{apiVersion}}/Usuario/sincronizar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v{{apiVersion}}",
+                        "Usuario",
+                        "sincronizar"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Thu, 16 Apr 2026 14:18:08 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Server",
+                      "value": "cloudflare"
+                    },
+                    {
+                      "key": "api-supported-versions",
+                      "value": "1.0"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots",
+                      "value": "otherbot: noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots-Tag",
+                      "value": "googlebot: noindex, nofollow"
+                    },
+                    {
+                      "key": "x-xss-protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "x-frame-options",
+                      "value": "SAMEORIGIN"
+                    },
+                    {
+                      "key": "Content-Security-Policy",
+                      "value": "object-src 'self'; frame-ancestors 'self' *.websupply.com.br *.remaza.com.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' apis.google.com *.google.com *.gstatic.com code.jquery.com unpkg.com *.fontawesome.com *.aspnetcdn.com *.yahooapis.com cdn.jsdelivr.net cdnjs.cloudflare.com www.googletagmanager.com *.bootstrapcdn.com cdn.datatables.net connect.facebook.net *.angularjs.org ajax.googleapis.com *.google-analytics.com *.googleadservices.com *.doubleclick.net *.weatherwidget.org cdn.tailwindcss.com;"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=31536000; includeSubDomains; preload"
+                    },
+                    {
+                      "key": "x-content-type-options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Nel",
+                      "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                    },
+                    {
+                      "key": "cf-cache-status",
+                      "value": "DYNAMIC"
+                    },
+                    {
+                      "key": "referrer-policy",
+                      "value": "same-origin"
+                    },
+                    {
+                      "key": "Report-To",
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=CJz6t9ISQhgeIG9EjDznfw%2BAGv6wFrhXutbvKlPBqdm3aeDU2mdxDVG1kscO9pR%2FaD6NYl6IoeystsYXbbTrZDLKVTh30Iz8Y50FPC9SJYVT4jvj3XOJCBgmmNnwBVncDfZ75YuhPyMVMY6FsQdyij5G3A%3D%3D\"}]}"
+                    },
+                    {
+                      "key": "expect-ct",
+                      "value": "max-age=86400, enforce"
+                    },
+                    {
+                      "key": "CF-RAY",
+                      "value": "9ed3d149085d6d66-GIG"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"erro\": true,\n    \"mensagem\": \"Erro no processamento da requisição\",\n    \"erros\": [\n        {\n            \"descErro\": \"Valor 'Ativo' inválido para o campo strStatus. Utilize 'A' ou 'I'.\"\n        }\n    ]\n}"
                 }
               ]
             }
