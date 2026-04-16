@@ -28,7 +28,7 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
           sudo apt-get update
-          sudo apt-get install -y jq
+          sudo apt-get install -y jq bc
 
       # 🔹 Baixar histórico existente
       - name: Baixar histórico do GitHub Pages
@@ -37,7 +37,7 @@ jobs:
           mkdir -p public
           cp -r gh-pages/* public/ || true
 
-      # 🔹 Criar environment com secrets
+      # 🔹 Criar environment
       - name: Criar environment com secrets
         run: |
           echo '{
@@ -50,7 +50,7 @@ jobs:
           }' > environment.json
 
       # 🔹 Rodar testes
-      - name: Rodar testes com relatório
+      - name: Rodar testes
         run: |
           newman run collection.json \
           -e environment.json \
@@ -58,42 +58,42 @@ jobs:
           --reporter-htmlextra-export report.html \
           --reporter-json-export report.json \
           --reporter-htmlextra-title "Relatório de Testes da API CVPS" \
-          --reporter-htmlextra-logs \
-          --reporter-htmlextra-showEnvironmentData \
           --reporter-htmlextra-darkTheme
         continue-on-error: true
 
-      # 🔹 Extrair métricas
+      # 🔹 Métricas
       - name: Extrair métricas
         run: |
           TOTAL=$(jq '.run.stats.assertions.total' report.json)
           FAILED=$(jq '.run.stats.assertions.failed' report.json)
           PASSED=$(jq '.run.stats.assertions.total - .run.stats.assertions.failed' report.json)
           SUCCESS=$(awk "BEGIN {printf \"%.2f\", ($PASSED/$TOTAL)*100}")
-          echo "TOTAL=$TOTAL"     >> $GITHUB_ENV
-          echo "FAILED=$FAILED"   >> $GITHUB_ENV
-          echo "PASSED=$PASSED"   >> $GITHUB_ENV
+
+          echo "TOTAL=$TOTAL" >> $GITHUB_ENV
+          echo "FAILED=$FAILED" >> $GITHUB_ENV
+          echo "PASSED=$PASSED" >> $GITHUB_ENV
           echo "SUCCESS=$SUCCESS" >> $GITHUB_ENV
 
       # 🔹 Timestamp
       - name: Gerar timestamp
         run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
 
-      # 🔹 Criar pasta da execução
+      # 🔹 Criar pasta execução
       - name: Criar estrutura
         run: mkdir -p public/$DATE
 
-      # 🔹 Salvar relatório detalhado
+      # 🔹 Salvar relatório REAL
       - name: Salvar relatório
-        run: cp report.html public/$DATE/index.html
+        run: cp report.html public/$DATE/report.html
 
       # 🔹 Atualizar histórico JSON
-      - name: Atualizar histórico JSON
+      - name: Atualizar histórico
         run: |
           FILE=public/history.json
           if [ ! -f "$FILE" ]; then
             echo "[]" > $FILE
           fi
+
           jq ". += [{
             \"date\": \"$DATE\",
             \"failed\": $FAILED,
@@ -102,376 +102,72 @@ jobs:
             \"success\": $SUCCESS
           }]" $FILE > tmp.json && mv tmp.json $FILE
 
-      # 🔹 Gerar dashboard visual
-      - name: Gerar dashboard
+      # 🔹 Página de execução COMPLETA
+      - name: Criar página da execução
         run: |
           DATA_BR=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M:%S')
 
-          # Calcula status geral (verde se sucesso >= 90, vermelho abaixo)
-          STATUS_COLOR="#68d391"
-          STATUS_TEXT="Passou"
-          if (( $(echo "$SUCCESS < 90" | bc -l) )); then
-            STATUS_COLOR="#fc8181"
-            STATUS_TEXT="Atenção"
+          if [ "$FAILED" -eq 0 ]; then
+            STATUS_COLOR="#16a34a"
+            STATUS_TEXT="SUCESSO"
+          else
+            STATUS_COLOR="#dc2626"
+            STATUS_TEXT="COM FALHAS"
           fi
 
-          cat <<'HTMLEOF' > public/index.html
+          cat <<EOF > public/$DATE/index.html
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Dashboard de Qualidade · API CVPS</title>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-            <style>
-              *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-              html, body {
-                background: #0a0e1a;
-                color: #e2e8f0;
-                font-family: 'Syne', sans-serif;
-                min-height: 100vh;
-              }
-              a { color: inherit; text-decoration: none; }
-
-              /* ── Topbar ── */
-              .topbar {
-                border-bottom: 1px solid rgba(99,179,237,0.12);
-                padding: 16px 32px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                background: rgba(255,255,255,0.015);
-                position: sticky; top: 0; z-index: 10;
-                backdrop-filter: blur(8px);
-              }
-              .brand { display: flex; align-items: center; gap: 10px; }
-              .logo {
-                width: 30px; height: 30px; border-radius: 7px;
-                background: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
-                display: flex; align-items: center; justify-content: center;
-                font-size: 14px; font-weight: 700; color: #fff;
-              }
-              .brand-name { font-size: 15px; font-weight: 600; color: #e2e8f0; }
-              .brand-sub  { font-size: 11px; color: #718096; font-family: 'IBM Plex Mono', monospace; margin-top: 1px; }
-              .run-badge {
-                font-family: 'IBM Plex Mono', monospace;
-                font-size: 11px;
-                padding: 5px 12px;
-                border-radius: 20px;
-                border: 1px solid rgba(99,179,237,0.25);
-                color: #63b3ed;
-                background: rgba(99,179,237,0.07);
-              }
-
-              /* ── Body ── */
-              .body { padding: 28px 32px; max-width: 1100px; margin: 0 auto; }
-
-              /* ── Run header ── */
-              .run-header {
-                display: flex; align-items: center; gap: 10px;
-                margin-bottom: 24px;
-              }
-              .run-dot {
-                width: 8px; height: 8px; border-radius: 50%;
-                background: STATUS_COLOR_PLACEHOLDER;
-                box-shadow: 0 0 8px STATUS_COLOR_PLACEHOLDER;
-              }
-              .run-info { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #718096; }
-              .run-right { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #4a5568; }
-
-              /* ── KPI Cards ── */
-              .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
-              @media (max-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-              .card {
-                background: rgba(255,255,255,0.025);
-                border: 1px solid rgba(255,255,255,0.06);
-                border-radius: 12px;
-                padding: 18px 20px;
-                position: relative; overflow: hidden;
-              }
-              .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-              .card.passed::before  { background: #68d391; }
-              .card.failed::before  { background: #fc8181; }
-              .card.total::before   { background: #63b3ed; }
-              .card.success::before { background: #f6ad55; }
-              .card-label { font-size: 10px; color: #718096; text-transform: uppercase; letter-spacing: 0.09em; font-family: 'IBM Plex Mono', monospace; margin-bottom: 8px; }
-              .card-value { font-size: 34px; font-weight: 700; line-height: 1; }
-              .card.passed  .card-value { color: #68d391; }
-              .card.failed  .card-value { color: #fc8181; }
-              .card.total   .card-value { color: #63b3ed; }
-              .card.success .card-value { color: #f6ad55; }
-              .card-sub { font-size: 11px; color: #4a5568; margin-top: 5px; font-family: 'IBM Plex Mono', monospace; }
-
-              /* ── Progress ── */
-              .progress-wrap { margin-bottom: 24px; }
-              .progress-meta { display: flex; justify-content: space-between; font-size: 11px; color: #718096; font-family: 'IBM Plex Mono', monospace; margin-bottom: 7px; }
-              .progress-bar  { height: 5px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
-              .progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #4299e1, #68d391); transition: width 0.8s ease; }
-
-              /* ── Two columns ── */
-              .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-              @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-
-              .section {
-                background: rgba(255,255,255,0.02);
-                border: 1px solid rgba(255,255,255,0.055);
-                border-radius: 12px;
-                padding: 20px 22px;
-              }
-              .section-title { font-size: 10px; color: #718096; text-transform: uppercase; letter-spacing: 0.09em; font-family: 'IBM Plex Mono', monospace; margin-bottom: 16px; }
-
-              /* ── History rows ── */
-              .hist-row {
-                display: flex; align-items: center; gap: 10px;
-                padding: 9px 0;
-                border-bottom: 1px solid rgba(255,255,255,0.035);
-                font-size: 12px;
-              }
-              .hist-row:last-child { border-bottom: none; }
-              .hist-dot   { width: 6px; height: 6px; border-radius: 50%; background: #68d391; flex-shrink: 0; }
-              .hist-dot.bad { background: #fc8181; }
-              .hist-date  { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #718096; min-width: 130px; }
-              .hist-track { flex: 1; background: rgba(255,255,255,0.04); height: 3px; border-radius: 99px; overflow: hidden; }
-              .hist-fill  { height: 100%; border-radius: 99px; background: #68d391; }
-              .hist-fill.bad { background: #fc8181; }
-              .hist-pct   { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #a0aec0; min-width: 36px; text-align: right; }
-
-              /* ── Report links ── */
-              .report-link {
-                display: flex; align-items: center; justify-content: space-between;
-                padding: 10px 14px; border-radius: 8px;
-                background: rgba(99,179,237,0.04);
-                border: 1px solid rgba(99,179,237,0.12);
-                margin-bottom: 8px;
-                color: #a0aec0;
-                font-family: 'IBM Plex Mono', monospace;
-                font-size: 11px;
-                transition: background 0.15s;
-              }
-              .report-link:hover { background: rgba(99,179,237,0.10); color: #e2e8f0; }
-              .report-arrow { color: #63b3ed; }
-
-              /* ── Legend ── */
-              .legend { display: flex; gap: 16px; font-size: 11px; color: #718096; font-family: 'IBM Plex Mono', monospace; margin-bottom: 10px; }
-              .legend-dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
-            </style>
+          <meta charset="UTF-8">
+          <title>Execução - API CVPS</title>
+          
+          <style>
+          body { background:#0a0e1a; color:#e2e8f0; font-family:Arial; margin:0 }
+          .header { display:flex; justify-content:space-between; padding:20px; border-bottom:1px solid #222 }
+          .status { background:$STATUS_COLOR; padding:6px 12px; border-radius:20px }
+          .container { padding:20px }
+          .cards { display:flex; gap:20px }
+          .card { flex:1; padding:20px; background:#111827; border-radius:10px; text-align:center }
+          iframe { width:100%; height:70vh; border:none; margin-top:20px; border-radius:10px }
+          </style>
           </head>
+          
           <body>
-
-          <div class="topbar">
-            <div class="brand">
-              <div class="logo">Q</div>
-              <div>
-                <div class="brand-name">API Quality Dashboard</div>
-                <div class="brand-sub">CVPS · GitHub Actions</div>
-              </div>
-            </div>
-            <div class="run-badge" id="badge-date">main · carregando...</div>
+          
+          <div class="header">
+            <div>📊 Execução API CVPS<br>${DATE}</div>
+            <div class="status">${STATUS_TEXT}</div>
           </div>
-
-          <div class="body">
-
-            <div class="run-header">
-              <div class="run-dot" id="run-dot"></div>
-              <div class="run-info" id="run-status">última execução concluída</div>
-              <div class="run-right">newman · collection.json</div>
-            </div>
-
-            <div class="cards">
-              <div class="card passed">
-                <div class="card-label">Passou</div>
-                <div class="card-value" id="kpi-passed">—</div>
-                <div class="card-sub">assertions</div>
-              </div>
-              <div class="card failed">
-                <div class="card-label">Falhou</div>
-                <div class="card-value" id="kpi-failed">—</div>
-                <div class="card-sub">assertions</div>
-              </div>
-              <div class="card total">
-                <div class="card-label">Total</div>
-                <div class="card-value" id="kpi-total">—</div>
-                <div class="card-sub">validações</div>
-              </div>
-              <div class="card success">
-                <div class="card-label">Taxa de Sucesso</div>
-                <div class="card-value" id="kpi-success">—</div>
-                <div class="card-sub" id="kpi-delta">vs execução anterior</div>
-              </div>
-            </div>
-
-            <div class="progress-wrap">
-              <div class="progress-meta">
-                <span>cobertura geral de testes</span>
-                <span id="progress-label">0 / 0</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div class="two-col">
-              <div class="section">
-                <div class="section-title">Evolução de Falhas &amp; Sucessos</div>
-                <div class="legend">
-                  <span><span class="legend-dot" style="background:#fc8181"></span>Falhas</span>
-                  <span><span class="legend-dot" style="background:#68d391"></span>Passou</span>
-                </div>
-                <div style="position: relative; height: 190px;">
-                  <canvas id="chartEvolucao" role="img" aria-label="Gráfico de evolução de falhas e sucessos por execução">Carregando dados...</canvas>
-                </div>
-              </div>
-
-              <div class="section">
-                <div class="section-title">Histórico de Execuções</div>
-                <div id="hist-list"></div>
-              </div>
-            </div>
-
-            <div class="section">
-              <div class="section-title">Relatórios Detalhados</div>
-              <div id="reports-list"></div>
-            </div>
-
+          
+          <div class="container">
+          
+          <p><b>Execução:</b> ${DATA_BR}</p>
+          
+          <div class="cards">
+            <div class="card">✔ ${PASSED}</div>
+            <div class="card">❌ ${FAILED}</div>
+            <div class="card">📦 ${TOTAL}</div>
+            <div class="card">📊 ${SUCCESS}%</div>
           </div>
-
-          <script>
-            async function loadDashboard() {
-              let history = [];
-              try {
-                const res = await fetch('history.json?_=' + Date.now());
-                history = await res.json();
-              } catch(e) {
-                console.warn('Sem histórico ainda');
-              }
-
-              if (!history.length) return;
-
-              const last = history[history.length - 1];
-              const prev = history.length > 1 ? history[history.length - 2] : null;
-
-              // KPIs
-              document.getElementById('kpi-passed').textContent  = last.passed;
-              document.getElementById('kpi-failed').textContent  = last.failed;
-              document.getElementById('kpi-total').textContent   = last.total;
-              document.getElementById('kpi-success').textContent = parseFloat(last.success).toFixed(1) + '%';
-
-              if (prev) {
-                const delta = (parseFloat(last.success) - parseFloat(prev.success)).toFixed(1);
-                const sign  = delta >= 0 ? '+' : '';
-                document.getElementById('kpi-delta').textContent = sign + delta + '% vs anterior';
-              }
-
-              // Progress bar
-              const pct = parseFloat(last.success);
-              document.getElementById('progress-fill').style.width = pct + '%';
-              document.getElementById('progress-label').textContent = last.passed + ' / ' + last.total;
-
-              // Badge data
-              const d = last.date.replace(/_/g, ' ').replace(/-(\d{2}) (\d{2}:\d{2}:\d{2})$/, ' $1:$2');
-              document.getElementById('badge-date').textContent = 'main · ' + last.date.replace(/_/g,' ');
-
-              // Status dot
-              const dot = document.getElementById('run-dot');
-              if (pct >= 90) {
-                dot.style.background = '#68d391';
-                dot.style.boxShadow  = '0 0 8px #68d391';
-                document.getElementById('run-status').textContent = 'última execução concluída com sucesso';
-              } else {
-                dot.style.background = '#fc8181';
-                dot.style.boxShadow  = '0 0 8px #fc8181';
-                document.getElementById('run-status').textContent = 'última execução com falhas acima do limite';
-              }
-
-              // Chart
-              const last12 = history.slice(-12);
-              const labels  = last12.map(r => {
-                const parts = r.date.split('_');
-                return parts[0] ? parts[0].substring(5) : r.date.substring(0,10);
-              });
-              const failed  = last12.map(r => parseInt(r.failed));
-              const passed  = last12.map(r => parseInt(r.passed));
-
-              new Chart(document.getElementById('chartEvolucao'), {
-                type: 'line',
-                data: {
-                  labels,
-                  datasets: [
-                    {
-                      label: 'Falhas',
-                      data: failed,
-                      borderColor: '#fc8181',
-                      backgroundColor: 'rgba(252,129,129,0.07)',
-                      borderWidth: 2,
-                      pointBackgroundColor: '#fc8181',
-                      pointRadius: 3,
-                      tension: 0.4,
-                      fill: true
-                    },
-                    {
-                      label: 'Passou',
-                      data: passed,
-                      borderColor: '#68d391',
-                      backgroundColor: 'rgba(104,211,145,0.05)',
-                      borderWidth: 2,
-                      pointBackgroundColor: '#68d391',
-                      pointRadius: 3,
-                      tension: 0.4,
-                      fill: true
-                    }
-                  ]
-                },
-                options: {
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  plugins: { legend: { display: false } },
-                  scales: {
-                    x: {
-                      grid: { color: 'rgba(255,255,255,0.03)' },
-                      ticks: { color: '#4a5568', font: { family: 'IBM Plex Mono', size: 9 }, maxRotation: 45, autoSkip: true }
-                    },
-                    y: {
-                      grid: { color: 'rgba(255,255,255,0.03)' },
-                      ticks: { color: '#4a5568', font: { family: 'IBM Plex Mono', size: 9 } }
-                    }
-                  }
-                }
-              });
-
-              // Histórico
-              const histList = document.getElementById('hist-list');
-              const recent = [...history].reverse().slice(0, 8);
-              histList.innerHTML = recent.map(r => {
-                const s = parseFloat(r.success);
-                const bad = s < 90;
-                return '<div class="hist-row">' +
-                  '<div class="hist-dot' + (bad ? ' bad' : '') + '"></div>' +
-                  '<div class="hist-date">' + r.date.replace(/_/g,' ') + '</div>' +
-                  '<div class="hist-track"><div class="hist-fill' + (bad ? ' bad' : '') + '" style="width:' + s + '%"></div></div>' +
-                  '<div class="hist-pct">' + s.toFixed(0) + '%</div>' +
-                '</div>';
-              }).join('');
-
-              // Links para relatórios
-              const reportsList = document.getElementById('reports-list');
-              reportsList.innerHTML = recent.map(r =>
-                '<a class="report-link" href="./' + r.date + '/">' +
-                  '<span>' + r.date.replace(/_/g,' ') + ' / index.html</span>' +
-                  '<span class="report-arrow">→</span>' +
-                '</a>'
-              ).join('');
-            }
-
-            loadDashboard();
-          </script>
-
+          
+          <a href="../index.html">← Voltar</a>
+          
+          <iframe src="./report.html"></iframe>
+          
+          </div>
+          
           </body>
           </html>
-          HTMLEOF
+          EOF
 
-      # 🔹 Publicar no GitHub Pages
+      # 🔹 Dashboard principal (mantém o seu atual)
+      - name: Gerar dashboard
+        run: |
+          # mantém o dashboard existente (não sobrescreve layout)
+          echo "Dashboard já existente mantido"
+
+      # 🔹 Deploy GitHub Pages
       - name: Publicar no GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
