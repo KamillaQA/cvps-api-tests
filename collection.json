@@ -7625,7 +7625,194 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"FORNECEDOR QUALIDADE novo\",\n  \"NOMEFANTASIA\": \"FORNECEDOR QUALIDADE\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"a@a.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"A\",\n  \"TELEFONE\": \"1\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"FORNECEDOR QUALIDADE novo\",\n  \"NOMEFANTASIA\": \"FORNECEDOR QUALIDADE\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"a@a.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"A\",\n  \"TELEFONE\": \"1\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Fornecedor",
+                    "sincronizar"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "[SMOKE] Sincronizar fornecedor válido",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"A\",\n  \"NOMEFANTASIA\": \"A\",\n  \"CGCCFO\": \"12345678000100\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"a@a.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"A\",\n  \"TELEFONE\": \"1\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v{{apiVersion}}",
+                        "Fornecedor",
+                        "sincronizar"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Tue, 31 Mar 2026 14:11:38 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Server",
+                      "value": "cloudflare"
+                    },
+                    {
+                      "key": "api-supported-versions",
+                      "value": "1.0"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots",
+                      "value": "otherbot: noindex, nofollow"
+                    },
+                    {
+                      "key": "X-Robots-Tag",
+                      "value": "googlebot: noindex, nofollow"
+                    },
+                    {
+                      "key": "x-xss-protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "x-frame-options",
+                      "value": "SAMEORIGIN"
+                    },
+                    {
+                      "key": "Content-Security-Policy",
+                      "value": "object-src 'self'; frame-ancestors 'self' *.websupply.com.br *.remaza.com.br; script-src 'self' 'unsafe-inline' 'unsafe-eval' apis.google.com *.google.com *.gstatic.com code.jquery.com unpkg.com *.fontawesome.com *.aspnetcdn.com *.yahooapis.com cdn.jsdelivr.net cdnjs.cloudflare.com www.googletagmanager.com *.bootstrapcdn.com cdn.datatables.net connect.facebook.net *.angularjs.org ajax.googleapis.com *.google-analytics.com *.googleadservices.com *.doubleclick.net *.weatherwidget.org cdn.tailwindcss.com;"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=31536000; includeSubDomains; preload"
+                    },
+                    {
+                      "key": "x-content-type-options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Nel",
+                      "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                    },
+                    {
+                      "key": "cf-cache-status",
+                      "value": "DYNAMIC"
+                    },
+                    {
+                      "key": "referrer-policy",
+                      "value": "same-origin"
+                    },
+                    {
+                      "key": "Report-To",
+                      "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=gBbkQ2tR0CTbuxdWfG6u7rfMFVhrFAEMevRLnJYUMNwNCXEoz%2FzfNAzfXsR%2F3bQR5Aob48PAuW7BJGJWz9sz3O9HofNSpbsaUUdaHwwFMhH9wmfmop80r54atHBUdWEdGwDlu5uo8FxARN%2BKjLr4RYRy5A%3D%3D\"}]}"
+                    },
+                    {
+                      "key": "expect-ct",
+                      "value": "max-age=86400, enforce"
+                    },
+                    {
+                      "key": "Content-Encoding",
+                      "value": "br"
+                    },
+                    {
+                      "key": "CF-RAY",
+                      "value": "9e4ff1c08eaecb06-GIG"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"erro\": false,\n    \"mensagem\": \"Dados recebidos com sucesso\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "[SMOKE] Sincronizar fornecedor inválido",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"timestamp\", Date.now());"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();\r",
+                      "\r",
+                      "pm.test(\"Status deve ser 200\", () => {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Erro deve ser false\", () => {\r",
+                      "    pm.expect(json.erro).to.eql(false);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Mensagem de sucesso\", () => {\r",
+                      "    pm.expect(json.mensagem.toLowerCase()).to.include(\"sucesso\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta aceitável\", () => {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"FORNECEDOR QUALIDADE novo\",\n  \"NOMEFANTASIA\": \"FORNECEDOR QUALIDADE\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"ATIVO\": \"I\",\n  \"EMAIL\": \"a@a.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"A\",\n  \"TELEFONE\": \"1\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -7790,6 +7977,17 @@
                     "packages": {},
                     "requests": {}
                   }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
                 }
               ],
               "request": {
@@ -7802,7 +8000,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F1774966397545\",\n  \"NOME\": \"Fornecedor Atualizado\",\n  \"NOMEFANTASIA\": \"Fornecedor Atualizado\",\n  \"CGCCFO\": \"12345678000100\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"a@a.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"A\",\n  \"TELEFONE\": \"1\"\n}"
+                  "raw": "{\n    \"CODCFO\": \"F1776348059418\",\n    \"NOME\": \"Fornecedor Atualizado\",\n    \"NOMEFANTASIA\": \"Fornecedor Atualizado\",\n    \"CGCCFO\": \"F1776348059418\",\n    \"ATIVO\": \"A\",\n    \"EMAIL\": \"a@a.com\",\n    \"CEP\": \"01001000\",\n    \"CODETD\": \"1\",\n    \"IDPAIS\": \"1\",\n    \"CONTATO\": \"A\",\n    \"TELEFONE\": \"1\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -7985,7 +8183,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor PF\",\n  \"NOMEFANTASIA\": \"Fornecedor PF\",\n  \"CGCCFO\": \"12345678901\",\n  \"PESSOAFISOUJUR\": \"F\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"pf@teste.com\",\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor PF\",\n  \"NOMEFANTASIA\": \"Fornecedor PF\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"F\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"pf@teste.com\",\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -8168,7 +8366,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor PJ\",\n  \"NOMEFANTASIA\": \"Fornecedor PJ\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"pj@teste.com\",\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor PJ\",\n  \"NOMEFANTASIA\": \"Fornecedor PJ\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"pj@teste.com\",\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -8351,7 +8549,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"1\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"S\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -8534,7 +8732,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Multi Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Multi\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"multi@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"c1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"1\"\n    },\n    {\n      \"strNome\": \"Contato 2\",\n      \"strEmail\": \"c2@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"97777777\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"96666666\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"0\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Multi Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Multi\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"multi@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"c1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    },\n    {\n      \"strNome\": \"Contato 2\",\n      \"strEmail\": \"c2@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"97777777\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"96666666\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"S\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -8681,7 +8879,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"S\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"S\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -8868,7 +9066,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"1\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"S\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9036,7 +9234,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"I\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9219,7 +9417,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"N\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9391,7 +9589,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"1\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"A\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"N\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9576,7 +9774,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"\",\n  \"NOME\": \"Fornecedor QA\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000100\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"fornecedor@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"\",\n  \"NOME\": \"Fornecedor QA\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000100\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"fornecedor@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9748,7 +9946,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor QAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000105\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"fornecedor@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor QAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000105\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"fornecedor@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -9950,7 +10148,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n\"CONTATOS\": [\n  {\n    \"strNome\": \"Contato 1\",\n    \"strEmail\": \"c1@teste.com\",\n    \"strNumDDD\": \"11\",\n    \"strNum\": \"99999999\",\n    \"strCelDDD\": \"11\",\n    \"strCel\": \"98888888\",\n    \"strStatus\": \"1\",\n    \"strPrincipal\": \"S\"\n  },\n  {\n    \"strNome\": \"Contato 2\",\n    \"strEmail\": \"c2@teste.com\",\n    \"strNumDDD\": \"11\",\n    \"strNum\": \"97777777\",\n    \"strCelDDD\": \"11\",\n    \"strCel\": \"96666666\",\n    \"strStatus\": \"1\",\n    \"strPrincipal\": \"S\"\n  }\n]\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor Contato\",\n  \"NOMEFANTASIA\": \"Fornecedor Contato\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n\"CONTATOS\": [\n  {\n    \"strNome\": \"Contato 1\",\n    \"strEmail\": \"c1@teste.com\",\n    \"strNumDDD\": \"11\",\n    \"strNum\": \"99999999\",\n    \"strCelDDD\": \"11\",\n    \"strCel\": \"98888888\",\n    \"strStatus\": \"A\",\n    \"strPrincipal\": \"S\"\n  },\n  {\n    \"strNome\": \"Contato 2\",\n    \"strEmail\": \"c2@teste.com\",\n    \"strNumDDD\": \"11\",\n    \"strNum\": \"97777777\",\n    \"strCelDDD\": \"11\",\n    \"strCel\": \"96666666\",\n    \"strStatus\": \"A\",\n    \"strPrincipal\": \"S\"\n  }\n]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -10137,7 +10335,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -10304,7 +10502,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor QA\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"teste@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"\",  // inexistente\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor QA\",\n  \"NOMEFANTASIA\": \"Fornecedor QA\",\n  \"CGCCFO\": \"12345678000100\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"teste@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"\",  // inexistente\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\"\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -10487,7 +10685,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"7\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"7\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -10674,7 +10872,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"S\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"8\",\n    \"strStatus\": \"1\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"S\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"8\",\n    \"strStatus\": \"A\"\n  },\n  {\n    \"strBanco\": \"237\",\n    \"strAgencia\": \"5678\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"654321\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -10859,7 +11057,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"\",\n  \"NOMEFANTASIA\": \"\",\n  \"NOME\": \"\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"INSCRESTADUAL\": \"123456789\",\n  \"INSCRMUNICIPAL\": \"98765432\",\n  \"ATIVO\": \"1\",\n  \"CFOIMOB\": \"0\",\n  \"PAGREC\": \"2\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"IDPAIS\": \"\",\n  \"PAIS\": \"Brasil\",\n  \"CODMUNICIPIO\": \"3550308\",\n  \"RUA\": \"Rua das Flores\",\n  \"NUMERO\": \"123\",\n  \"BAIRRO\": \"Centro\",\n  \"CIDADE\": \"São Paulo\",\n  \"COMPLEMENTO\": \"Sala 10\",\n  \"CODETD\": \"\",\n  \"CEP\": \"\",\n  \"TELEFONE\": \"\",\n  \"EMAIL\": \"\",\n  \"CONTATO\": \"\",\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Maria Oliveira\",\n      \"strEmail\": \"maria@fornecedor.com.br\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"33334444\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"999998888\",\n      \"strStatus\": \"S\",\n      \"strPrincipal\": \"S\"\n    }\n  ],\n  \"BANCOS\": [\n    {\n      \"strBanco\": \"001\",\n      \"strAgencia\": \"1234\",\n      \"strAgencia_Dig\": \"5\",\n      \"strContaCorrente\": \"56789\",\n      \"strContaCorrente_Dig\": \"0\",\n      \"strPrincipal\": \"S\",\n      \"strStatus\": \"S\"\n    }\n  ]\n}"
+                  "raw": "{\n  \"CODCFO\": \"\",\n  \"NOMEFANTASIA\": \"\",\n  \"NOME\": \"\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"INSCRESTADUAL\": \"123456789\",\n  \"INSCRMUNICIPAL\": \"98765432\",\n  \"ATIVO\": \"A\",\n  \"CFOIMOB\": \"0\",\n  \"PAGREC\": \"2\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"IDPAIS\": \"\",\n  \"PAIS\": \"Brasil\",\n  \"CODMUNICIPIO\": \"3550308\",\n  \"RUA\": \"Rua das Flores\",\n  \"NUMERO\": \"123\",\n  \"BAIRRO\": \"Centro\",\n  \"CIDADE\": \"São Paulo\",\n  \"COMPLEMENTO\": \"Sala 10\",\n  \"CODETD\": \"\",\n  \"CEP\": \"\",\n  \"TELEFONE\": \"\",\n  \"EMAIL\": \"\",\n  \"CONTATO\": \"\",\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Maria Oliveira\",\n      \"strEmail\": \"maria@fornecedor.com.br\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"33334444\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"999998888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"S\"\n    }\n  ],\n  \"BANCOS\": [\n    {\n      \"strBanco\": \"001\",\n      \"strAgencia\": \"1234\",\n      \"strAgencia_Dig\": \"5\",\n      \"strContaCorrente\": \"56789\",\n      \"strContaCorrente_Dig\": \"0\",\n      \"strPrincipal\": \"S\",\n      \"strStatus\": \"S\"\n    }\n  ]\n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -11039,7 +11237,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"1\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor conta bancaria\",\n  \"NOMEFANTASIA\": \"Fornecedor conta bancaria\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
@@ -11226,7 +11424,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor 09\",\n  \"NOMEFANTASIA\": \"Fornecedor 09\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"1\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"N\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"1\"\n  }\n]\n  \n}"
+                  "raw": "{\n  \"CODCFO\": \"F{{timestamp}}\",\n  \"NOME\": \"Fornecedor 09\",\n  \"NOMEFANTASIA\": \"Fornecedor 09\",\n  \"CGCCFO\": \"F{{timestamp}}\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"ATIVO\": \"A\",\n  \"EMAIL\": \"contato@teste.com\",\n\n  \"CEP\": \"01001000\",\n  \"CODETD\": \"1\",\n  \"IDPAIS\": \"1\",\n  \"CONTATO\": \"QA\",\n  \"TELEFONE\": \"1199\",\n\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"Contato 1\",\n      \"strEmail\": \"contato1@teste.com\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"99999999\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"98888888\",\n      \"strStatus\": \"N\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\"BANCOS\": [\n  {\n    \"strBanco\": \"001\",\n    \"strAgencia\": \"1234\",\n    \"strAgencia_Dig\": \"0\",\n    \"strContaCorrente\": \"123456\",\n    \"strContaCorrente_Dig\": \"1\",\n    \"strPrincipal\": \"S\",\n    \"strStatus\": \"A\"\n  }\n]\n  \n}"
                 },
                 "url": {
                   "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
