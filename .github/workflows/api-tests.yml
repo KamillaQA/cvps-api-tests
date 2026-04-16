@@ -54,11 +54,8 @@ jobs:
         run: |
           newman run collection.json \
           -e environment.json \
-          --reporters cli,htmlextra,json \
-          --reporter-htmlextra-export report.html \
-          --reporter-json-export report.json \
-          --reporter-htmlextra-title "Relatório de Testes da API CVPS" \
-          --reporter-htmlextra-darkTheme
+          --reporters cli,json \
+          --reporter-json-export report.json
         continue-on-error: true
 
       # 🔹 Métricas
@@ -67,26 +64,38 @@ jobs:
           TOTAL=$(jq '.run.stats.assertions.total' report.json)
           FAILED=$(jq '.run.stats.assertions.failed' report.json)
           PASSED=$(jq '.run.stats.assertions.total - .run.stats.assertions.failed' report.json)
-          SUCCESS=$(awk "BEGIN {printf \"%.2f\", ($PASSED/$TOTAL)*100}")
+
+          if [ "$TOTAL" -eq 0 ]; then
+            SUCCESS=0
+          else
+            SUCCESS=$(awk "BEGIN {printf \"%.2f\", ($PASSED/$TOTAL)*100}")
+          fi
 
           echo "TOTAL=$TOTAL" >> $GITHUB_ENV
           echo "FAILED=$FAILED" >> $GITHUB_ENV
           echo "PASSED=$PASSED" >> $GITHUB_ENV
           echo "SUCCESS=$SUCCESS" >> $GITHUB_ENV
 
-      # 🔹 Timestamp
-      - name: Gerar timestamp
-        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+      # 🔹 Timestamp BR
+      - name: Gerar timestamp BR
+        run: |
+          DATE=$(TZ="America/Sao_Paulo" date +'%d-%m-%Y_%H-%M-%S')
+          DATA_BR=$(TZ="America/Sao_Paulo" date +'%d/%m/%Y %H:%M:%S')
+
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "DATA_BR=$DATA_BR" >> $GITHUB_ENV
 
       # 🔹 Criar pasta execução
       - name: Criar estrutura
         run: mkdir -p public/$DATE
 
-      # 🔹 Salvar relatório REAL
-      - name: Salvar relatório
-        run: cp report.html public/$DATE/report.html
+      # 🔹 Extrair endpoints com falha
+      - name: Extrair falhas
+        run: |
+          jq -r '.run.failures[]?.source.name' report.json | sort | uniq > falhas.txt || true
+          echo "FALHAS=$(cat falhas.txt | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
 
-      # 🔹 Atualizar histórico JSON
+      # 🔹 Atualizar histórico
       - name: Atualizar histórico
         run: |
           FILE=public/history.json
@@ -95,18 +104,18 @@ jobs:
           fi
 
           jq ". += [{
-            \"date\": \"$DATE\",
+            \"date\": \"$DATA_BR\",
+            \"folder\": \"$DATE\",
             \"failed\": $FAILED,
             \"passed\": $PASSED,
             \"total\": $TOTAL,
-            \"success\": $SUCCESS
+            \"success\": $SUCCESS,
+            \"falhas\": \"$FALHAS\"
           }]" $FILE > tmp.json && mv tmp.json $FILE
 
-      # 🔹 Página de execução COMPLETA
+      # 🔹 Página de execução limpa
       - name: Criar página da execução
         run: |
-          DATA_BR=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M:%S')
-
           if [ "$FAILED" -eq 0 ]; then
             STATUS_COLOR="#16a34a"
             STATUS_TEXT="SUCESSO"
@@ -126,48 +135,84 @@ jobs:
           body { background:#0a0e1a; color:#e2e8f0; font-family:Arial; margin:0 }
           .header { display:flex; justify-content:space-between; padding:20px; border-bottom:1px solid #222 }
           .status { background:$STATUS_COLOR; padding:6px 12px; border-radius:20px }
-          .container { padding:20px }
-          .cards { display:flex; gap:20px }
+          .container { padding:30px }
+          .cards { display:flex; gap:20px; margin-bottom:20px }
           .card { flex:1; padding:20px; background:#111827; border-radius:10px; text-align:center }
-          iframe { width:100%; height:70vh; border:none; margin-top:20px; border-radius:10px }
+          .lista { background:#111827; padding:20px; border-radius:10px }
           </style>
           </head>
           
           <body>
           
           <div class="header">
-            <div>📊 Execução API CVPS<br>${DATE}</div>
-            <div class="status">${STATUS_TEXT}</div>
+            <div>📊 Execução API CVPS<br>$DATE</div>
+            <div class="status">$STATUS_TEXT</div>
           </div>
           
           <div class="container">
           
-          <p><b>Execução:</b> ${DATA_BR}</p>
+          <p><b>Execução:</b> $DATA_BR</p>
           
           <div class="cards">
-            <div class="card">✔ ${PASSED}</div>
-            <div class="card">❌ ${FAILED}</div>
-            <div class="card">📦 ${TOTAL}</div>
-            <div class="card">📊 ${SUCCESS}%</div>
+            <div class="card">✔ $PASSED</div>
+            <div class="card">❌ $FAILED</div>
+            <div class="card">📦 $TOTAL</div>
+            <div class="card">📊 $SUCCESS%</div>
           </div>
           
+          <h2>🚨 Endpoints com falha</h2>
+          
+          <div class="lista">
+          EOF
+          
+                    if [ -s falhas.txt ]; then
+                      while read linha; do
+                        echo "<p>❌ $linha</p>" >> public/$DATE/index.html
+                      done < falhas.txt
+                    else
+                      echo "<p>✅ Nenhuma falha</p>" >> public/$DATE/index.html
+                    fi
+          
+                    cat <<EOF >> public/$DATE/index.html
+          </div>
+          
+          <br>
           <a href="../index.html">← Voltar</a>
           
-          <iframe src="./report.html"></iframe>
-          
           </div>
-          
           </body>
           </html>
           EOF
+          
+                # 🔹 Dashboard principal
+                - name: Gerar dashboard
+                  run: |
+                    cat <<EOF > public/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <meta charset="UTF-8">
+          <title>Dashboard</title>
+          </head>
+          <body style="background:#0a0e1a;color:white;font-family:Arial;padding:20px">
+          
+          <h1>📊 Dashboard de Qualidade</h1>
+          
+          <p><b>Última execução:</b> $DATA_BR</p>
+          <p>✔ Passou: $PASSED</p>
+          <p>❌ Falhou: $FAILED</p>
+          <p>📦 Total: $TOTAL</p>
+          <p>📊 Sucesso: $SUCCESS%</p>
+          
+          <h2>📂 Histórico</h2>
+          EOF
+          
+                    for dir in public/*/; do
+                      name=$(basename "$dir")
+                      echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
+                    done
 
-      # 🔹 Dashboard principal (mantém o seu atual)
-      - name: Gerar dashboard
-        run: |
-          # mantém o dashboard existente (não sobrescreve layout)
-          echo "Dashboard já existente mantido"
-
-      # 🔹 Deploy GitHub Pages
+      # 🔹 Deploy
       - name: Publicar no GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
