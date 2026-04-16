@@ -53,10 +53,10 @@ jobs:
 
       - name: Extrair métricas
         run: |
-          TOTAL=$(jq '.run.stats.tests.total' report.json)
-          FAILED=$(jq '.run.stats.tests.failed' report.json)
-          PASSED=$(jq '.run.stats.tests.total - .run.stats.tests.failed' report.json)
-
+          TOTAL=$(jq '.run.stats.assertions.total' report.json)
+          FAILED=$(jq '.run.stats.assertions.failed' report.json)
+          PASSED=$(jq '.run.stats.assertions.total - .run.stats.assertions.failed' report.json)
+      
           echo "TOTAL=$TOTAL" >> $GITHUB_ENV
           echo "FAILED=$FAILED" >> $GITHUB_ENV
           echo "PASSED=$PASSED" >> $GITHUB_ENV
