@@ -123,94 +123,60 @@ jobs:
             STATUS_COLOR="#dc2626"
             STATUS_TEXT="COM FALHAS"
           fi
-
-          cat <<EOF > public/$DATE/index.html
-          <!DOCTYPE html>
-          <html lang="pt-BR">
-          <head>
-          <meta charset="UTF-8">
-          <title>Execução - API CVPS</title>
-          
-          <style>
-          body { background:#0a0e1a; color:#e2e8f0; font-family:Arial; margin:0 }
-          .header { display:flex; justify-content:space-between; padding:20px; border-bottom:1px solid #222 }
-          .status { background:$STATUS_COLOR; padding:6px 12px; border-radius:20px }
-          .container { padding:30px }
-          .cards { display:flex; gap:20px; margin-bottom:20px }
-          .card { flex:1; padding:20px; background:#111827; border-radius:10px; text-align:center }
-          .lista { background:#111827; padding:20px; border-radius:10px }
-          </style>
-          </head>
-          
-          <body>
-          
-          <div class="header">
-            <div>📊 Execução API CVPS<br>$DATE</div>
-            <div class="status">$STATUS_TEXT</div>
-          </div>
-          
-          <div class="container">
-          
-          <p><b>Execução:</b> $DATA_BR</p>
-          
-          <div class="cards">
-            <div class="card">✔ $PASSED</div>
-            <div class="card">❌ $FAILED</div>
-            <div class="card">📦 $TOTAL</div>
-            <div class="card">📊 $SUCCESS%</div>
-          </div>
-          
-          <h2>🚨 Endpoints com falha</h2>
-          
-          <div class="lista">
-          EOF
-          
-                    if [ -s falhas.txt ]; then
-                      while read linha; do
-                        echo "<p>❌ $linha</p>" >> public/$DATE/index.html
-                      done < falhas.txt
-                    else
-                      echo "<p>✅ Nenhuma falha</p>" >> public/$DATE/index.html
-                    fi
-          
-                    cat <<EOF >> public/$DATE/index.html
-          </div>
-          
-          <br>
-          <a href="../index.html">← Voltar</a>
-          
-          </div>
-          </body>
-          </html>
-          EOF
-          
-                # 🔹 Dashboard principal
-                - name: Gerar dashboard
-                  run: |
-                    cat <<EOF > public/index.html
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <meta charset="UTF-8">
-          <title>Dashboard</title>
-          </head>
-          <body style="background:#0a0e1a;color:white;font-family:Arial;padding:20px">
-          
-          <h1>📊 Dashboard de Qualidade</h1>
-          
-          <p><b>Última execução:</b> $DATA_BR</p>
-          <p>✔ Passou: $PASSED</p>
-          <p>❌ Falhou: $FAILED</p>
-          <p>📦 Total: $TOTAL</p>
-          <p>📊 Sucesso: $SUCCESS%</p>
-          
-          <h2>📂 Histórico</h2>
-          EOF
-          
-                    for dir in public/*/; do
-                      name=$(basename "$dir")
-                      echo "<p><a href='./$name/'>$name</a></p>" >> public/index.html
-                    done
+      
+          DATA_BR=$(TZ="America/Sao_Paulo" date '+%d/%m/%Y %H:%M:%S')
+      
+          {
+            echo "<!DOCTYPE html>"
+            echo "<html lang='pt-BR'>"
+            echo "<head>"
+            echo "<meta charset='UTF-8'>"
+            echo "<title>Execução - API CVPS</title>"
+            echo "<style>"
+            echo "body { background:#0a0e1a; color:#e2e8f0; font-family:Arial; margin:0 }"
+            echo ".header { display:flex; justify-content:space-between; padding:20px; border-bottom:1px solid #222 }"
+            echo ".status { background:$STATUS_COLOR; padding:6px 12px; border-radius:20px }"
+            echo ".container { padding:30px }"
+            echo ".cards { display:flex; gap:20px; margin-bottom:20px }"
+            echo ".card { flex:1; padding:20px; background:#111827; border-radius:10px; text-align:center }"
+            echo ".lista { background:#111827; padding:20px; border-radius:10px }"
+            echo "</style>"
+            echo "</head>"
+            echo "<body>"
+      
+            echo "<div class='header'>"
+            echo "<div>📊 Execução API CVPS<br>$DATE</div>"
+            echo "<div class='status'>$STATUS_TEXT</div>"
+            echo "</div>"
+      
+            echo "<div class='container'>"
+            echo "<p><b>Execução:</b> $DATA_BR</p>"
+      
+            echo "<div class='cards'>"
+            echo "<div class='card'>✔ $PASSED</div>"
+            echo "<div class='card'>❌ $FAILED</div>"
+            echo "<div class='card'>📦 $TOTAL</div>"
+            echo "<div class='card'>📊 $SUCCESS%</div>"
+            echo "</div>"
+      
+            echo "<h2>🚨 Endpoints com falha</h2>"
+            echo "<div class='lista'>"
+      
+            if [ -s falhas.txt ]; then
+              while read linha; do
+                echo "<p>❌ $linha</p>"
+              done < falhas.txt
+            else
+              echo "<p>✅ Nenhuma falha</p>"
+            fi
+      
+            echo "</div>"
+            echo "<br>"
+            echo "<a href='../index.html'>← Voltar</a>"
+            echo "</div>"
+            echo "</body>"
+            echo "</html>"
+          } > public/$DATE/index.html
 
       # 🔹 Deploy
       - name: Publicar no GitHub Pages
