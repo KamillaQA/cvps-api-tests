@@ -94,7 +94,13 @@ jobs:
         with:
           name: report-api-tests
           path: report.html
-
+          
+      - name: Baixar histórico do GitHub Pages
+        run: |
+          git clone --depth=1 --branch gh-pages https://github.com/${{ github.repository }} gh-pages || true
+          mkdir -p public
+          cp -r gh-pages/* public/ || true
+    
       - name: Publicar no GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
