@@ -28,7 +28,7 @@ jobs:
           npm install -g newman
           npm install -g newman-reporter-htmlextra
           sudo apt-get update
-          sudo apt-get install -y jq
+          sudo apt-get install -y jq 
 
       # 🔹 Baixar histórico existente
       - name: Baixar histórico do GitHub Pages
