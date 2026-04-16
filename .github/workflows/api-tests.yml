@@ -22,7 +22,17 @@ jobs:
 
       - name: Instalar Reporter HTML
         run: npm install -g newman-reporter-html
-
+      - name: Criar environment com secrets
+        run: |
+          echo '{
+            "values": [
+              { "key": "baseUrl", "value": "${{ secrets.BASE_URL }}" },
+              { "key": "apiVersion", "value": "${{ secrets.API_VERSION }}" },
+              { "key": "usuario", "value": "${{ secrets.USUARIO }}" },
+              { "key": "senha", "value": "${{ secrets.SENHA }}" }
+            ]
+          }' > environment.json
+    
       - name: Rodar testes com relatório
         run: |
           newman run collection.json \
