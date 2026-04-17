@@ -85,20 +85,8 @@ jobs:
           DATE=$(TZ="America/Sao_Paulo" date +'%Y-%m-%d_%H-%M-%S')
           HUMAN_DATE=$(TZ="America/Sao_Paulo" date +'%d/%m às %H:%M')
           EXEC_TS=$(TZ="America/Sao_Paulo" date +%s)
-          NOW_TS=$(date +%s)
-      
-          DIFF_MIN=$(( (NOW_TS - EXEC_TS) / 60 ))
-      
-          if [ "$DIFF_MIN" -lt 1 ]; then
-            RELATIVE="agora"
-          elif [ "$DIFF_MIN" -lt 60 ]; then
-            RELATIVE="há ${DIFF_MIN} min"
-          else
-            DIFF_H=$(( DIFF_MIN / 60 ))
-            RELATIVE="há ${DIFF_H}h"
-          fi
-      
-          DISPLAY_DATE="Executado em ${HUMAN_DATE} (${RELATIVE})"
+          
+          DISPLAY_DATE="Executado em ${HUMAN_DATE}"
       
           echo "DATE=$DATE" >> $GITHUB_ENV
           echo "DISPLAY_DATE=$DISPLAY_DATE" >> $GITHUB_ENV
