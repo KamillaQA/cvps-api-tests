@@ -218,7 +218,7 @@ jobs:
               <b>API Quality Dashboard</b><br>
               <small>Relatório detalhado</small>
             </div>
-            <div>${{ env.DISPLAY_DATE }}</div>
+           <div class="run-badge" id="badge-date">${{ env.DISPLAY_DATE }}</div>
           </div>
         
           <div class="summary-bar">
@@ -572,10 +572,6 @@ jobs:
               const pct = parseFloat(last.success);
               document.getElementById('progress-fill').style.width = pct + '%';
               document.getElementById('progress-label').textContent = last.passed + ' / ' + last.total;
-
-              // Badge data
-              const d = last.date.replace(/_/g, ' ').replace(/-(\d{2}) (\d{2}:\d{2}:\d{2})$/, ' $1:$2');
-              <div class="run-badge">main · $DISPLAY_DATE</div>
 
               // Status dot
               const dot = document.getElementById('run-dot');
