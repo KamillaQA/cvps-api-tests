@@ -30,5 +30,18 @@
     "passed": 253,
     "total": 258,
     "success": 98.06
+  },
+  {
+    "date": "2026-04-17_12-03-19",
+    "folder": "2026-04-17_12-03-19",
+    "failed": 4,
+    "passed": 254,
+    "total": 258,
+    "success": 98.45,
+    "summary": {
+      "requests": 62,
+      "prerequest": 61,
+      "tests": 61
+    }
   }
 ]

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes dos Testes</title>
+  <style>
+    body {
+      background:#0a0e1a;
+      color:#e2e8f0;
+      font-family:sans-serif;
+      padding:20px;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap:10px;
+    }
+    .card {
+      background:#111827;
+      padding:15px;
+      border-radius:10px;
+    }
+    table {
+      width:100%;
+      margin-top:20px;
+      border-collapse:collapse;
+    }
+    td,th {
+      padding:10px;
+      border-bottom:1px solid #222;
+    }
+    .fail { color:#fc8181; }
+    .ok { color:#68d391; }
+  </style>
+</head>
+<body>
+
+<h2>Resumo da Execução</h2>
+
+<div class="grid" id="summary"></div>
+
+<h2>Detalhamento</h2>
+<table id="table"></table>
+
+<script>
+  async function load() {
+    const res = await fetch('details.json');
+    const data = await res.json();
+
+    const s = data.summary;
+
+    document.getElementById('summary').innerHTML = `
+      <div class="card">Requests<br><b>${s.requests.total}</b></div>
+      <div class="card">Pre-request<br><b>${s.prerequests.total}</b></div>
+      <div class="card">Tests<br><b>${s.tests.total}</b></div>
+      <div class="card">Assertions<br><b>${s.assertions.total}</b></div>
+    `;
+
+    document.getElementById('table').innerHTML = `
+      <tr><th>Item</th><th>Total</th><th>Failed</th></tr>
+      <tr><td>Requests</td><td>${s.requests.total}</td><td>${s.requests.failed}</td></tr>
+      <tr><td>Pre-request</td><td>${s.prerequests.total}</td><td>${s.prerequests.failed}</td></tr>
+      <tr><td>Tests</td><td>${s.tests.total}</td><td>${s.tests.failed}</td></tr>
+      <tr class="fail">
+        <td>Assertions</td>
+        <td>${s.assertions.total}</td>
+        <td>${s.assertions.failed}</td>
+      </tr>
+    `;
+  }
+
+  load();
+</script>
+
+</body>
+</html>
