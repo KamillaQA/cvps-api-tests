@@ -143,14 +143,29 @@
 <body>
 
 <div class="topbar">
-  <div class="brand">
-    <div class="logo">Q</div>
-    <div>
-      <div class="brand-name">API Quality Dashboard</div>
-      <div class="brand-sub">CVPS · GitHub Actions</div>
-    </div>
+  <div>
+    <b>API Quality Dashboard</b><br>
+    <small>Relatório detalhado</small>
   </div>
-  <div class="run-badge" id="badge-date">main · carregando...</div>
+
+  <div style="display:flex; align-items:center; gap:12px;">
+
+    <a href="../" style="
+      font-family: monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(99,179,237,0.3);
+      color: #63b3ed;
+      background: rgba(99,179,237,0.08);
+      text-decoration:none;
+    ">
+      ← voltar ao dashboard
+    </a>
+
+    <div>Executado em 17/04 às 10:32 (agora)</div>
+
+  </div>
 </div>
 
 <div class="body">
@@ -252,8 +267,8 @@
     document.getElementById('progress-label').textContent = last.passed + ' / ' + last.total;
 
     // Badge data
-    const d = last.date.replace(/_/g, ' ').replace(/-(\d{2}) (\d{2}:\d{2}:\d{2})$/, ' $1:$2');
-    document.getElementById('badge-date').textContent = 'main · ' + last.date.replace(/_/g,' ');
+    const d = last.date.replace(/_/g, ' ').replace(/-(\d{2}) (\d{2}:\d{2}:\d{2})$/, ' :');
+    <div class="run-badge">main · Executado em 17/04 às 10:32 (agora)</div>
 
     // Status dot
     const dot = document.getElementById('run-dot');
