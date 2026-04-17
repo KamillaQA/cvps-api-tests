@@ -269,7 +269,8 @@
       errorsList.innerHTML = '<div style="color:#68d391;">✔ Nenhum erro</div>';
     } else {
       errorsList.innerHTML = failures.map(f => {
-        const exec = findExecutionForFailure(f, executions);
+       const index = failures.indexOf(f);
+       const exec = executions[index];
     
         const method = exec?.request?.method || 'REQUEST';
         const url = getUrlString(exec?.request?.url) || 'URL não identificada';
