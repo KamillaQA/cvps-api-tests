@@ -211,7 +211,6 @@ jobs:
             <div>
               <b>API Quality Dashboard</b><br>
               <small>Relatório detalhado</small>
-              <div class="run-badge" id="badge-date"></div>
             </div>
           
             <div style="display:flex; align-items:center; gap:12px;">
@@ -586,14 +585,6 @@ jobs:
               if (!history.length) return;
 
               const last = history[history.length - 1];
-              // 📅 DATA DA EXECUÇÃO
-              const dateFormatted = last.date
-                .replace('_', ' ')
-                .replace(/-(\d{2})$/, ':$1')        // segundos
-                .replace(/-(\d{2}):/, ':$1:');      // minutos
-              
-              document.getElementById('badge-date').textContent =
-                'main · Executado em ' + dateFormatted;
               // 🔴 ERROS DA ÚLTIMA EXECUÇÃO
               try {
                 const detailsRes = await fetch(last.folder + '/details.json');
