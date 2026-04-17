@@ -286,20 +286,28 @@ jobs:
                 errorsList.innerHTML = '<div style="color:#68d391;">✔ Nenhum erro</div>';
               } else {
                 errorsList.innerHTML = failures.map(f => {
-                  const name = f.source?.name || 'request';
-                  const msg  = f.error?.message || 'erro desconhecido';
+                const exec = details.executions.find(e => 
+                  e.item.name === f.source?.name
+                );
+                
+                const method = exec?.request?.method || '';
+                const url = exec?.request?.url?.raw || '';
+                
+                const name = f.source?.name || 'request';
+                const msg  = f.error?.message || 'erro desconhecido';
               
-                  return `
-                    <div style="
-                      padding:10px;
-                      border-bottom:1px solid rgba(255,255,255,0.05);
-                      font-family:monospace;
-                      font-size:11px;
-                    ">
-                      <div style="color:#fc8181;">${name}</div>
-                      <div style="color:#a0aec0;">${msg}</div>
-                    </div>
-                  `;
+                return `
+                  <div style="
+                    padding:10px;
+                    border-bottom:1px solid rgba(255,255,255,0.05);
+                    font-family:monospace;
+                    font-size:11px;
+                  ">
+                    <div style="color:#63b3ed;">${method} ${url}</div>
+                    <div style="color:#fc8181;">${name}</div>
+                    <div style="color:#a0aec0;">${msg}</div>
+                  </div>
+                `;
                 }).join('');
               }
         
