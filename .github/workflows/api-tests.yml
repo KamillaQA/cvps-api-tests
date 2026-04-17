@@ -103,9 +103,14 @@ jobs:
             summary: .run.stats,
             timings: .run.timings,
             failures: .run.failures,
-            executions: .run.executions
+            executions: (.run.executions | map({
+              item: .item,
+              cursor: .cursor,
+              request: .request,
+              response: .response
+            }))
           }' report.json > public/$DATE/details.json
-
+          
       # 🔹 Atualizar histórico JSON
       - name: Atualizar histórico JSON
         run: |
@@ -559,11 +564,7 @@ jobs:
               </div>
             </div>
             
-            <div class="section">
-              <div class="section-title">Últimos Erros</div>
-              <div id="errors-list"></div>
-            </div>
-            
+           
             <div class="section">
               <div class="section-title">Relatórios Detalhados</div>
               <div id="reports-list"></div>
@@ -589,29 +590,57 @@ jobs:
                 const detailsRes = await fetch(last.folder + '/details.json');
                 const details = await detailsRes.json();
               
-                const failures = details.failures || [];
-                const errorsList = document.getElementById('errors-list');
+               const failures = details.failures || [];
+              const executions = details.executions || [];
+              const errorsList = document.getElementById('errors-list');
               
-                if (!failures.length) {
-                  errorsList.innerHTML = '<div style="color:#68d391;">✔ Nenhum erro</div>';
-                } else {
-                  errorsList.innerHTML = failures.slice(0, 5).map(f => {
-                    const name = f.source?.name || 'request';
-                    const msg  = f.error?.message || 'erro desconhecido';
-              
-                    return `
-                      <div style="
-                        padding:10px;
-                        border-bottom:1px solid rgba(255,255,255,0.05);
-                        font-family:monospace;
-                        font-size:11px;
-                      ">
-                        <div style="color:#fc8181;">${name}</div>
-                        <div style="color:#a0aec0;">${msg}</div>
-                      </div>
-                    `;
-                  }).join('');
+              function getUrlString(urlObj) {
+                if (!urlObj) return '';
+                if (typeof urlObj === 'string') return urlObj;
+                if (urlObj.raw) return urlObj.raw;
+                if (Array.isArray(urlObj.host) || Array.isArray(urlObj.path)) {
+                  const host = Array.isArray(urlObj.host) ? urlObj.host.join('.') : '';
+                  const path = Array.isArray(urlObj.path) ? '/' + urlObj.path.join('/') : '';
+                  return host + path;
                 }
+                return '';
+              }
+              
+              function findExecutionForFailure(failure, executions) {
+                const sourceName = failure.source?.name || '';
+              
+                return executions.find(e =>
+                  e.item?.name === sourceName ||
+                  e.cursor?.ref === sourceName ||
+                  e.cursor?.httpRequestId === sourceName
+                );
+              }
+              
+              if (!failures.length) {
+                errorsList.innerHTML = '<div style="color:#68d391;">✔ Nenhum erro</div>';
+              } else {
+                errorsList.innerHTML = failures.map(f => {
+                  const exec = findExecutionForFailure(f, executions);
+              
+                  const method = exec?.request?.method || 'REQUEST';
+                  const url = getUrlString(exec?.request?.url) || 'URL não identificada';
+                  const testName = f.source?.name || 'Teste não identificado';
+                  const msg = f.error?.message || 'erro desconhecido';
+              
+                  return `
+                    <div style="
+                      padding:10px;
+                      border-bottom:1px solid rgba(255,255,255,0.05);
+                      font-family:monospace;
+                      font-size:11px;
+                    ">
+                      <div style="color:#63b3ed;">${method} ${url}</div>
+                      <div style="color:#fc8181;">${testName}</div>
+                      <div style="color:#a0aec0;">${msg}</div>
+                    </div>
+                  `;
+                }).join('');
+              }
               
               } catch(e) {
                 console.error('Erro ao carregar failures', e);
