@@ -81,7 +81,28 @@ jobs:
 
       # 🔹 Timestamp
       - name: Gerar timestamp
-        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+        run: |
+          DATE=$(TZ="America/Sao_Paulo" date +'%Y-%m-%d_%H-%M-%S')
+          HUMAN_DATE=$(TZ="America/Sao_Paulo" date +'%d/%m às %H:%M')
+      
+          NOW_TS=$(date +%s)
+          EXEC_TS=$(TZ="America/Sao_Paulo" date -d "${DATE/_/ }" +%s)
+      
+          DIFF_MIN=$(( (NOW_TS - EXEC_TS) / 60 ))
+      
+          if [ "$DIFF_MIN" -lt 1 ]; then
+            RELATIVE="agora"
+          elif [ "$DIFF_MIN" -lt 60 ]; then
+            RELATIVE="há ${DIFF_MIN} min"
+          else
+            DIFF_H=$(( DIFF_MIN / 60 ))
+            RELATIVE="há ${DIFF_H}h"
+          fi
+      
+          DISPLAY_DATE="Executado em ${HUMAN_DATE} (${RELATIVE})"
+      
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          echo "DISPLAY_DATE=$DISPLAY_DATE" >> $GITHUB_ENV
 
       # 🔹 Criar pasta da execução
       - name: Criar estrutura
@@ -198,7 +219,7 @@ jobs:
               <b>API Quality Dashboard</b><br>
               <small>Relatório detalhado</small>
             </div>
-            <div id="run-date"></div>
+            <div>${{ env.DISPLAY_DATE }}</div>
           </div>
         
           <div class="summary-bar">
@@ -248,8 +269,6 @@ jobs:
               document.getElementById('success').textContent = current.success + '%';
         
               document.getElementById('progress-bar').style.width = current.success + '%';
-        
-              document.getElementById('run-date').textContent = current.date.replace(/_/g,' ');
         
               // SUMMARY
               const s = details.summary;
@@ -432,14 +451,29 @@ jobs:
           <body>
 
           <div class="topbar">
-            <div class="brand">
-              <div class="logo">Q</div>
-              <div>
-                <div class="brand-name">API Quality Dashboard</div>
-                <div class="brand-sub">CVPS · GitHub Actions</div>
-              </div>
+            <div>
+              <b>API Quality Dashboard</b><br>
+              <small>Relatório detalhado</small>
             </div>
-            <div class="run-badge" id="badge-date">main · carregando...</div>
+          
+            <div style="display:flex; align-items:center; gap:12px;">
+          
+              <a href="../" style="
+                font-family: monospace;
+                font-size: 11px;
+                padding: 6px 12px;
+                border-radius: 20px;
+                border: 1px solid rgba(99,179,237,0.3);
+                color: #63b3ed;
+                background: rgba(99,179,237,0.08);
+                text-decoration:none;
+              ">
+                ← voltar ao dashboard
+              </a>
+          
+              <div>${{ env.DISPLAY_DATE }}</div>
+          
+            </div>
           </div>
 
           <div class="body">
