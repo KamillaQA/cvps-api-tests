@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório Detalhado</title>
+
+  <style>
+    body {
+      background:#0a0e1a;
+      color:#e2e8f0;
+      font-family:'Segoe UI', sans-serif;
+      margin:0;
+    }
+
+    .topbar {
+      padding:15px 25px;
+      display:flex;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .summary-bar {
+      display:flex;
+      gap:25px;
+      padding:15px 25px;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .summary-item {
+      font-family:monospace;
+    }
+
+    .green { color:#68d391; }
+    .red { color:#fc8181; }
+    .blue { color:#63b3ed; }
+    .gold { color:#f6ad55; }
+
+    .progress {
+      height:4px;
+      background:#111;
+    }
+
+    .progress div {
+      height:100%;
+      background:linear-gradient(90deg,#4299e1,#68d391);
+    }
+
+    .content {
+      padding:25px;
+    }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      font-family:monospace;
+    }
+
+    td,th {
+      padding:10px;
+      border-bottom:1px solid #222;
+    }
+
+    .fail { color:#fc8181; }
+  </style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div>
+    <b>API Quality Dashboard</b><br>
+    <small>Relatório detalhado</small>
+  </div>
+  <div id="run-date"></div>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-item">
+    PASSOU<br><span class="green" id="passed"></span>
+  </div>
+  <div class="summary-item">
+    FALHOU<br><span class="red" id="failed"></span>
+  </div>
+  <div class="summary-item">
+    TOTAL<br><span class="blue" id="total"></span>
+  </div>
+  <div class="summary-item">
+    SUCESSO<br><span class="gold" id="success"></span>
+  </div>
+</div>
+
+<div class="progress">
+  <div id="progress-bar" style="width:0%"></div>
+</div>
+
+<div class="content">
+
+  <h3>Resumo dos Testes</h3>
+
+  <table id="summary-table"></table>
+
+</div>
+
+<script>
+  async function load() {
+
+    const [detailsRes, historyRes] = await Promise.all([
+      fetch('details.json'),
+      fetch('../history.json')
+    ]);
+
+    const details = await detailsRes.json();
+    const history = await historyRes.json();
+
+    const current = history[history.length - 1];
+
+    // TOPO
+    document.getElementById('passed').textContent = current.passed;
+    document.getElementById('failed').textContent = current.failed;
+    document.getElementById('total').textContent = current.total;
+    document.getElementById('success').textContent = current.success + '%';
+
+    document.getElementById('progress-bar').style.width = current.success + '%';
+
+    document.getElementById('run-date').textContent = current.date.replace(/_/g,' ');
+
+    // SUMMARY
+    const s = details.summary;
+
+    document.getElementById('summary-table').innerHTML = `
+      <tr><th>Item</th><th>Total</th><th>Failed</th></tr>
+      <tr><td>Requests</td><td>${s.requests.total}</td><td>${s.requests.failed}</td></tr>
+      <tr><td>Prerequest Scripts</td><td>${s.prerequests.total}</td><td>${s.prerequests.failed}</td></tr>
+      <tr><td>Test Scripts</td><td>${s.tests.total}</td><td>${s.tests.failed}</td></tr>
+      <tr class="fail">
+        <td>Assertions</td>
+        <td>${s.assertions.total}</td>
+        <td>${s.assertions.failed}</td>
+      </tr>
+    `;
+  }
+
+  load();
+</script>
+
+</body>
+</html>
