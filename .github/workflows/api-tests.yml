@@ -84,9 +84,8 @@ jobs:
         run: |
           DATE=$(TZ="America/Sao_Paulo" date +'%Y-%m-%d_%H-%M-%S')
           HUMAN_DATE=$(TZ="America/Sao_Paulo" date +'%d/%m às %H:%M')
-      
+          EXEC_TS=$(TZ="America/Sao_Paulo" date +%s)
           NOW_TS=$(date +%s)
-          EXEC_TS=$(TZ="America/Sao_Paulo" date -d "${DATE/_/ }" +%s)
       
           DIFF_MIN=$(( (NOW_TS - EXEC_TS) / 60 ))
       
@@ -305,7 +304,7 @@ jobs:
             STATUS_TEXT="Atenção"
           fi
 
-          cat <<'HTMLEOF' > public/index.html
+          cat <<HTMLEOF > public/index.html
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head>
@@ -576,7 +575,7 @@ jobs:
 
               // Badge data
               const d = last.date.replace(/_/g, ' ').replace(/-(\d{2}) (\d{2}:\d{2}:\d{2})$/, ' $1:$2');
-              document.getElementById('badge-date').textContent = 'main · ' + last.date.replace(/_/g,' ');
+              <div class="run-badge">main · $DISPLAY_DATE</div>
 
               // Status dot
               const dot = document.getElementById('run-dot');
