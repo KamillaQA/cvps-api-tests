@@ -98,10 +98,6 @@ jobs:
             executions: .run.executions
           }' report.json > public/$DATE/details.json
 
-     # 🔹 Salvar relatório Newman como report.html 
-      - name: Salvar relatório
-        run: cp report.html public/$DATE/report.html
-
       # 🔹 Atualizar histórico JSON
       - name: Atualizar histórico JSON
         run: |
