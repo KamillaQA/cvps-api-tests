@@ -218,7 +218,25 @@ jobs:
               <b>API Quality Dashboard</b><br>
               <small>Relatório detalhado</small>
             </div>
-           <div class="run-badge" id="badge-date">${{ env.DISPLAY_DATE }}</div>
+          
+            <div style="display:flex; align-items:center; gap:12px;">
+          
+              <a href="../" style="
+                font-family: monospace;
+                font-size: 11px;
+                padding: 6px 12px;
+                border-radius: 20px;
+                border: 1px solid rgba(99,179,237,0.3);
+                color: #63b3ed;
+                background: rgba(99,179,237,0.08);
+                text-decoration:none;
+              ">
+                ← voltar ao dashboard
+              </a>
+          
+              <div>${{ env.DISPLAY_DATE }}</div>
+          
+            </div>
           </div>
         
           <div class="summary-bar">
@@ -455,21 +473,7 @@ jobs:
               <small>Relatório detalhado</small>
             </div>
           
-            <div style="display:flex; align-items:center; gap:12px;">
-          
-              <a href="../" style="
-                font-family: monospace;
-                font-size: 11px;
-                padding: 6px 12px;
-                border-radius: 20px;
-                border: 1px solid rgba(99,179,237,0.3);
-                color: #63b3ed;
-                background: rgba(99,179,237,0.08);
-                text-decoration:none;
-              ">
-                ← voltar ao dashboard
-              </a>
-          
+            <div style="display:flex; align-items:center; gap:12px;"> 
               <div>${{ env.DISPLAY_DATE }}</div>
           
             </div>
