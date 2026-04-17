@@ -149,7 +149,7 @@
   </div>
 
   <div style="display:flex; align-items:center; gap:12px;"> 
-    <div>Executado em 17/04 às 11:27</div>
+    <div id="run-date"></div>
 
   </div>
 </div>
@@ -212,7 +212,12 @@
       <div id="hist-list"></div>
     </div>
   </div>
-
+  
+  <div class="section">
+    <div class="section-title">Últimos Erros</div>
+    <div id="errors-list"></div>
+  </div>
+  
   <div class="section">
     <div class="section-title">Relatórios Detalhados</div>
     <div id="reports-list"></div>
@@ -233,6 +238,38 @@
     if (!history.length) return;
 
     const last = history[history.length - 1];
+    // 🔴 ERROS DA ÚLTIMA EXECUÇÃO
+    try {
+      const detailsRes = await fetch(last.folder + '/details.json');
+      const details = await detailsRes.json();
+    
+      const failures = details.failures || [];
+      const errorsList = document.getElementById('errors-list');
+    
+      if (!failures.length) {
+        errorsList.innerHTML = '<div style="color:#68d391;">✔ Nenhum erro</div>';
+      } else {
+        errorsList.innerHTML = failures.slice(0, 5).map(f => {
+          const name = f.source?.name || 'request';
+          const msg  = f.error?.message || 'erro desconhecido';
+    
+          return `
+            <div style="
+              padding:10px;
+              border-bottom:1px solid rgba(255,255,255,0.05);
+              font-family:monospace;
+              font-size:11px;
+            ">
+              <div style="color:#fc8181;">${name}</div>
+              <div style="color:#a0aec0;">${msg}</div>
+            </div>
+          `;
+        }).join('');
+      }
+    
+    } catch(e) {
+      console.error('Erro ao carregar failures', e);
+    }
     const prev = history.length > 1 ? history[history.length - 2] : null;
 
     // KPIs
@@ -324,7 +361,7 @@
     const recent = [...history].reverse().slice(0, 8);
     histList.innerHTML = recent.map(r => {
       const s = parseFloat(r.success);
-      const bad = s < 90;
+      const bad = parseInt(r.failed) > 0;
       return '<div class="hist-row">' +
         '<div class="hist-dot' + (bad ? ' bad' : '') + '"></div>' +
         '<div class="hist-date">' + r.date.replace(/_/g,' ') + '</div>' +
