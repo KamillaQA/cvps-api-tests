@@ -9935,6 +9935,65 @@
               ]
             },
             {
+              "name": "[NEG] Alteração do Código ERP do fornecedor",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const json = pm.response.json();\r",
+                      "\r",
+                      "pm.test(\"Status deve indicar erro\", () => {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([400, 422]);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Deve indicar erro\", () => {\r",
+                      "    if (json.erro !== undefined) {\r",
+                      "        pm.expect(json.erro).to.eql(true);\r",
+                      "    } else {\r",
+                      "        pm.expect(pm.response.code).to.be.greaterThan(399);\r",
+                      "    }\r",
+                      "});\r",
+                      "pm.test(\"Mensagem deve indicar bloqueio de alteração de CODCFO\", () => {\r",
+                      "    const mensagem = pm.response.json().mensagem.toLowerCase();\r",
+                      "\r",
+                      "    pm.expect(mensagem).to.include(\"nao e permitido\");\r",
+                      "    pm.expect(mensagem).to.include(\"codcfo\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"CODCFO\": \"12345612\",\n  \"NOMEFANTASIA\": \"Fornecedor Exemplo LTDA\",\n  \"NOME\": \"e Comercio LTDA Fornecedor Exemplo Industria \",\n  \"CGCCFO\": \"012345\",\n  \"INSCRESTADUAL\": \"987654321\",\n  \"INSCRMUNICIPAL\": \"1111111111\",\n  \"ATIVO\": \"1\",\n  \"CFOIMOB\": \"\",\n  \"PAGREC\": \"2\",\n  \"PESSOAFISOUJUR\": \"J\",\n  \"IDPAIS\": \"1\",\n  \"PAIS\": \"Brasil\",\n  \"CODMUNICIPIO\": \"3550308\",\n  \"RUA\": \"Avenida Paulista\",\n  \"NUMERO\": \"1500\",\n  \"BAIRRO\": \"Bela Vista\",\n  \"CIDADE\": \"São Paulo\",\n  \"COMPLEMENTO\": \"Conjunto 101\",\n  \"CODETD\": \"SP\",\n  \"CEP\": \"01310100\",\n  \"TELEFONE\": \"1133334444\",\n  \"EMAIL\": \"contato@fornecedorexemplo.com.br\",\n  \"CONTATO\": \"João da Silva\",\n  \"CONTATOS\": [\n    {\n      \"strNome\": \"João da Silva aaaaaaaaaaaa\",\n      \"strEmail\": \"joao.silva@fornecedorexemplo.com.br\",\n      \"strNumDDD\": \"11\",\n      \"strNum\": \"33334444\",\n      \"strCelDDD\": \"11\",\n      \"strCel\": \"988887777\",\n      \"strStatus\": \"A\",\n      \"strPrincipal\": \"N\"\n    }\n  ],\n  \"BANCOS\": [\n    {\n      \"strBanco\": \"001\",\n      \"strAgencia\": \"1234\",\n      \"strAgencia_Dig\": \"5\",\n      \"strContaCorrente\": \"987654\",\n      \"strContaCorrente_Dig\": \"1\",\n      \"strPrincipal\": \"S\",\n      \"strStatus\": \"A\"\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v{{apiVersion}}/Fornecedor/sincronizar",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v{{apiVersion}}",
+                    "Fornecedor",
+                    "sincronizar"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
               "name": "[NEG] Campo nome grande",
               "event": [
                 {
