@@ -2,7 +2,7 @@
 
 Acompanhe os testes automatizados da API em tempo real:
 
-👉 https://kamillaqa.github.io/cvps-api-tests/
+👉 https://websupply.github.io/cvps-api-tests/
 
 ---
 
