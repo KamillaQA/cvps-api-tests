@@ -3,6 +3,9 @@ name: API Tests - Postman
 on:
   push:
     branches: [ "main" ]
+  schedule:
+    - cron: '0 11 * * 1'  # Toda segunda-feira às 08:00 horário de Brasília (11:00 UTC)
+  workflow_dispatch:       # Permite rodar manualmente pelo GitHub Actions
 
 permissions:
   contents: write
@@ -771,3 +774,48 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+
+      # 🔹 Sinalizar falha real do job (necessário para acionar a notificação por e-mail,
+      #    já que o step do newman usa continue-on-error e não falha o job sozinho).
+      #    Roda por último, depois que o dashboard já foi publicado.
+      - name: Verificar se houve testes falhos
+        if: always()
+        run: |
+          if [ "$FAILED" -gt 0 ]; then
+            echo "⚠️ $FAILED assertions falharam — marcando job como falho para disparar notificação."
+            exit 1
+          fi
+
+  notificar:
+    name: Notificar Falhas por E-mail
+    runs-on: ubuntu-latest
+    needs: test
+    if: failure() && github.event_name == 'schedule'
+    steps:
+      - name: Enviar e-mail de alerta
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          to: ${{ secrets.MAIL_TO }}
+          from: "API Quality Dashboard <${{ secrets.MAIL_USERNAME }}>"
+          subject: "🚨 Falha nos testes - CVPS API (Run #${{ github.run_number }})"
+          body: |
+            Olá,
+
+            A execução automática dos testes de API do CVPS detectou falhas.
+
+            🔢 Run: #${{ github.run_number }}
+            🔗 Repositório: ${{ github.repository }}
+
+            Acesse o dashboard para ver os detalhes:
+            https://kamillaqa.github.io/cvps-api-tests/
+
+            Veja o log completo da execução:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            ---
+            Este e-mail foi enviado automaticamente pelo GitHub Actions.
